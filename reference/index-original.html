@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>БЕЗДНА — тапрум и кухня, Санкт-Петербург</title>
+<meta name="theme-color" content="#0a0908">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://bezdna-bar.ru/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="БЕЗДНА — тапрум и кухня, Санкт-Петербург">
+<meta property="og:description" content="Тёмный тапрум и кухня на Рижском проспекте: краны с крафтом, бургеры, рёбра, пицца и ночной вайб Бездны.">
+<meta property="og:site_name" content="БЕЗДНА">
+<meta property="og:url" content="https://bezdna-bar.ru/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="БЕЗДНА — тапрум и кухня, Санкт-Петербург">
+<meta name="twitter:description" content="Тёмный тапрум и кухня на Рижском проспекте: краны с крафтом, бургеры, рёбра, пицца и ночной вайб Бездны.">
+<link rel="icon" type="image/svg+xml" href="Resurs-1-11.svg"><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BarOrPub",
+  "name": "БЕЗДНА",
+  "description": "Тапрум и кухня на Рижском проспекте в Санкт-Петербурге: крафтовое пиво, бургеры, рёбра, пицца и поздние часы работы.",
+  "servesCuisine": ["Burgers", "Pizza", "Bar Food"],
+  "telephone": "+7 (967) 976-56-56",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Рижский проспект, 12",
+    "addressLocality": "Санкт-Петербург",
+    "addressCountry": "RU"
+  },
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    "opens": "16:00",
+    "closes": "03:00"
+  }],
+  "sameAs": ["https://t.me/abyss_calling"],
+  "url": "https://bezdna-bar.ru/"
+}
+</script>
+<meta name="description" content="Бездна — тапрум и кухня на Рижском проспекте, Санкт-Петербург. Крафтовое пиво на кранах, бургеры, рёбра и пицца. Ежедневно 16:00–03:00.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat&family=Oswald:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --void: #0a0908;
+    --panel: #100c0c;
+    --panel-2: #161010;
+    --blood: #7a1414;
+    --blood-bright: #b32020;
+    --blood-glow: #e0392f;
+    --bone: #f2ebe2;
+    --bone-dim: #cabfb6;
+    --muted: #7d716b;
+    --line: rgba(242,235,226,0.10);
+    --line-strong: rgba(242,235,226,0.20);
+    --line-blood: rgba(179,32,32,0.45);
+
+    --f-display: 'Caveat', sans-serif;
+    --f-label: 'Oswald', sans-serif;
+    --f-body: 'Manrope', sans-serif;
+
+    --container: 1240px;
+    --gap: clamp(1.5rem, 4vw, 4rem);
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *,*::before,*::after{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--void);
+    color:var(--bone);
+    font-family:var(--f-body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  img,svg{ display:block; max-width:100%; }
+
+  a{ color:inherit; text-decoration:none; }
+
+  h1,h2,h3{ margin:0; font-family:var(--f-display); font-weight:400; letter-spacing:0.01em; text-transform:uppercase; }
+
+  p{ margin:0; }
+
+  ::selection{ background:var(--blood-bright); color:var(--bone); }
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible, input:focus-visible{
+    outline:2px solid var(--blood-glow);
+    outline-offset:3px;
+  }
+
+  .skip-link{
+    position:absolute; left:-9999px; top:0;
+    background:var(--blood); color:var(--bone);
+    padding:0.8rem 1.2rem; z-index:999;
+    font-family:var(--f-label);
+  }
+  .skip-link:focus{ left:1rem; top:1rem; }
+
+  .container{
+    width:100%;
+    max-width:var(--container);
+    margin:0 auto;
+    padding-inline:clamp(1.25rem, 5vw, 3rem);
+  }
+
+  .eyebrow{
+    font-family:var(--f-label);
+    text-transform:uppercase;
+    letter-spacing:0.32em;
+    font-size:0.72rem;
+    color:var(--blood-glow);
+    display:flex;
+    align-items:center;
+    gap:0.75em;
+  }
+  .eyebrow::before{
+    content:'';
+    width:1.6em; height:1px;
+    background:var(--blood-glow);
+    display:inline-block;
+  }
+
+  /* grain overlay */
+  .grain{
+    pointer-events:none;
+    position:fixed; inset:0;
+    z-index:500;
+    opacity:0.05;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .vignette{
+    pointer-events:none;
+    position:fixed; inset:0;
+    z-index:400;
+    background:radial-gradient(ellipse at 50% 40%, transparent 40%, rgba(0,0,0,0.65) 100%);
+  }
+
+  /* ============ NAV ============ */
+  .site-header{
+    position:fixed; inset:0 0 auto 0;
+    z-index:600;
+    padding:1.1rem 0;
+    background:linear-gradient(to bottom, rgba(8,6,6,0.9), transparent);
+    transition:background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+    border-bottom:1px solid transparent;
+  }
+  .site-header.scrolled{
+    background:rgba(10,8,8,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:1rem;
+  }
+  .logo{
+    font-family:var(--f-display);
+    font-size:1.35rem;
+    letter-spacing:0.14em;
+    color:var(--bone);
+  }
+  .logo span{ color:var(--blood-glow); }
+
+  .nav-links{
+    display:flex; gap:clamp(1rem,2.4vw,2.4rem);
+    list-style:none; margin:0; padding:0;
+    font-family:var(--f-label);
+    font-size:0.82rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+  }
+  .nav-links a{
+    position:relative;
+    color:var(--bone-dim);
+    padding:0.3rem 0;
+    transition:color 0.25s ease;
+  }
+  .nav-links a::after{
+    content:'';
+    position:absolute; left:0; right:100%; bottom:-2px;
+    height:1px; background:var(--blood-glow);
+    transition:right 0.3s ease;
+  }
+  .nav-links a:hover, .nav-links a:focus-visible, .nav-links a.is-active{ color:var(--bone); }
+  .nav-links a:hover::after, .nav-links a:focus-visible::after, .nav-links a.is-active::after{ right:0; }
+
+  .nav-cta{
+    display:inline-flex;
+    font-family:var(--f-label);
+    font-size:0.78rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    border:1px solid var(--line-blood);
+    color:var(--bone);
+    padding:0.65rem 1.3rem;
+    transition:background 0.3s ease, border-color 0.3s ease;
+    white-space:nowrap;
+  }
+  .nav-cta:hover, .nav-cta:focus-visible{ background:var(--blood); border-color:var(--blood-bright); }
+
+  .nav-toggle{
+    display:none;
+    background:none; border:1px solid var(--line-strong);
+    width:44px; height:44px;
+    color:var(--bone);
+    font-family:var(--f-label);
+    cursor:pointer;
+  }
+
+  /* ============ BUTTONS ============ */
+  .btn{
+    font-family:var(--f-label);
+    font-size:0.85rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    padding:1rem 2rem;
+    display:inline-block;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:transform 0.25s ease, background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  }
+  .btn-primary{
+    background:var(--blood);
+    color:var(--bone);
+    border-color:var(--blood);
+  }
+  .btn-primary:hover, .btn-primary:focus-visible{
+    background:var(--blood-bright);
+    border-color:var(--blood-bright);
+    transform:translateY(-2px);
+  }
+  .btn-ghost{
+    background:transparent;
+    color:var(--bone);
+    border-color:var(--line-strong);
+  }
+  .btn-ghost:hover, .btn-ghost:focus-visible{
+    border-color:var(--bone);
+    transform:translateY(-2px);
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding-top:6rem;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 90% 60% at 50% 20%, rgba(122,20,20,0.16) 0%, transparent 60%),
+      linear-gradient(180deg, #0d0a0a 0%, #0a0908 55%, #060505 100%);
+  }
+  .hero-visual{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:0;
+    opacity:0.9;
+  }
+  .hero-visual svg{
+    width:min(1400px, 200vw);
+    height:auto;
+    will-change:transform;
+  }
+  .hero-rings{ transform-origin:center; animation:rotate-slow 90s linear infinite; }
+  @keyframes rotate-slow{ to{ transform:rotate(360deg); } }
+
+  .hero-content{
+    position:relative; z-index:2;
+  }
+  .hero-content .container{
+    display:flex; flex-direction:column; gap:1.6rem;
+  }
+  .hero-title{
+    font-size:clamp(4.2rem, 16vw, 11rem);
+    line-height:0.86;
+    letter-spacing:0.01em;
+    color:var(--bone);
+    text-shadow:0 0 60px rgba(224,57,47,0.25);
+  }
+  .hero-title em{
+    font-style:normal;
+    color:var(--blood-bright);
+    text-shadow:0 0 40px rgba(224,57,47,0.55);
+  }
+  .hero-badges{
+    display:flex; flex-wrap:wrap; gap:0.6rem 1.2rem;
+    align-items:center;
+    font-family:var(--f-label);
+    font-size:0.72rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--bone-dim);
+  }
+  .hero-badges b{ color:var(--bone); font-family:var(--f-label); }
+  .hero-badges .dot{ width:4px; height:4px; background:var(--blood-glow); border-radius:50%; display:inline-block; }
+  .hero-sub{
+    max-width:36rem;
+    font-family:var(--f-body);
+    font-size:clamp(1.05rem, 1.6vw, 1.3rem);
+    color:var(--bone-dim);
+    font-weight:500;
+  }
+  .hero-sub strong{ color:var(--bone); font-weight:700; }
+  .hero-ctas{
+    display:flex; flex-wrap:wrap; gap:1rem;
+    margin-top:0.75rem;
+  }
+  .hero-meta{
+    position:relative; z-index:2;
+    margin-top:clamp(3rem, 8vh, 6rem);
+    border-top:1px solid var(--line);
+  }
+  .hero-meta .container{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-block:1.1rem;
+    font-family:var(--f-label);
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+    flex-wrap:wrap;
+    gap:0.6rem;
+  }
+  .scroll-cue{
+    display:inline-flex; align-items:center; gap:0.6em;
+  }
+  .scroll-cue::after{
+    content:'';
+    width:1px; height:26px;
+    background:linear-gradient(var(--blood-glow), transparent);
+    animation:scroll-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes scroll-pulse{ 0%,100%{ opacity:0.3; } 50%{ opacity:1; } }
+
+  /* ============ SECTION SHARED ============ */
+  section{
+    position:relative;
+    padding-block:clamp(5rem, 12vh, 9rem);
+    border-top:1px solid var(--line);
+  }
+  .section-head{
+    display:flex; flex-direction:column; gap:1rem;
+    margin-bottom:clamp(2.5rem, 6vh, 4.5rem);
+  }
+  .section-title{
+    font-size:clamp(2.3rem, 5.5vw, 4.4rem);
+    line-height:0.95;
+  }
+  .section-title .accent{ color:var(--blood-glow); }
+
+  /* ============ ABOUT ============ */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.1fr 1px 1fr;
+    gap:var(--gap);
+    align-items:start;
+  }
+  .about-divider{ background:var(--line-strong); align-self:stretch; }
+  .about-quote{
+    font-family:var(--f-display);
+    text-transform:uppercase;
+    font-size:clamp(1.8rem, 3.4vw, 2.6rem);
+    line-height:1.14;
+    color:var(--bone);
+  }
+  .about-body{
+    display:flex; flex-direction:column; gap:1.3rem;
+    color:var(--bone-dim);
+    font-size:1.02rem;
+    max-width:34rem;
+  }
+  .about-body .lead{ color:var(--bone); font-weight:700; font-size:1.1rem; }
+  .about-stats{
+    margin-top:0.8rem;
+    display:flex; gap:clamp(1.5rem,4vw,3rem);
+    flex-wrap:wrap;
+  }
+  .about-stats div{ font-family:var(--f-label); }
+  .about-stats b{
+    display:block; font-family:var(--f-display);
+    font-size:2rem; color:var(--blood-glow);
+  }
+  .about-stats span{
+    font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted);
+  }
+
+  /* ============ MENU ============ */
+  .menu-nav{
+    display:flex; flex-wrap:wrap; gap:0.6rem 0.9rem;
+    margin-bottom:clamp(2.5rem, 6vh, 4rem);
+    font-family:var(--f-label);
+    text-transform:uppercase;
+    font-size:0.78rem;
+    letter-spacing:0.1em;
+  }
+  .menu-nav a{
+    padding:0.5rem 1rem;
+    border:1px solid var(--line);
+    color:var(--bone-dim);
+    transition:border-color 0.25s ease, color 0.25s ease;
+  }
+  .menu-nav a:hover, .menu-nav a:focus-visible, .menu-nav a.is-active{ border-color:var(--blood-glow); color:var(--bone); }
+
+  .menu-category{
+    padding-block:clamp(2.2rem, 5vh, 3.5rem);
+    border-top:1px solid var(--line);
+    scroll-margin-top:6.5rem;
+  }
+  .menu-category:first-of-type{ border-top:none; }
+  .menu-category-head{
+    display:flex; align-items:baseline; gap:1.2rem;
+    margin-bottom:1.8rem;
+  }
+  .menu-category-num{
+    font-family:var(--f-label);
+    color:var(--muted);
+    font-size:0.85rem;
+  }
+  .menu-category-title{
+    font-size:clamp(1.8rem, 3.6vw, 2.6rem);
+  }
+  .menu-list{
+    list-style:none; margin:0; padding:0;
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    column-gap:var(--gap);
+  }
+  .menu-item{
+    padding-block:1.05rem;
+    border-bottom:1px solid var(--line);
+    display:flex; flex-direction:column; gap:0.35rem;
+  }
+  .menu-item-row{
+    display:flex; align-items:baseline; gap:0.6rem;
+  }
+  .menu-item-name{
+    font-family:var(--f-body);
+    font-weight:700;
+    font-size:1.05rem;
+    color:var(--bone);
+    white-space:nowrap;
+  }
+  .menu-item-leader{
+    flex:1;
+    border-bottom:1px dotted var(--line-strong);
+    transform:translateY(-0.35em);
+  }
+  .menu-item-price{
+    font-family:var(--f-label);
+    font-size:0.95rem;
+    color:var(--blood-glow);
+    white-space:nowrap;
+  }
+  .menu-item-desc{
+    color:var(--muted);
+    font-size:0.88rem;
+  }
+
+
+  .menu-note{
+    margin:-1rem 0 clamp(2rem, 5vh, 3rem);
+    color:var(--muted);
+    max-width:40rem;
+    font-size:0.92rem;
+  }
+  .reservation-panel{
+    margin-top:clamp(2rem, 5vh, 3rem);
+    padding:1.25rem 1.35rem;
+    border:1px solid var(--line);
+    background:linear-gradient(180deg, rgba(122,20,20,0.12), rgba(22,16,16,0.72));
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:1rem;
+    flex-wrap:wrap;
+  }
+  .reservation-panel p{ color:var(--bone-dim); max-width:34rem; }
+  .reservation-actions{ display:flex; gap:0.8rem; flex-wrap:wrap; }
+  .contact-cta-group{ display:flex; gap:0.8rem; flex-wrap:wrap; margin-top:1.2rem; }
+  .contact-lead{ color:var(--bone); font-size:1.15rem; line-height:1.5; margin-bottom:0.6rem; }
+  .contact-note{ color:var(--muted); font-size:0.92rem; margin-top:0.7rem; }
+  .route-link{ display:inline-flex; margin-top:1rem; }
+  body.nav-open{ overflow:hidden; }
+  .nav-drawer[hidden]{ display:none; }
+  @media (max-width: 900px){
+    .menu-nav{ overflow:auto; flex-wrap:nowrap; padding-bottom:0.5rem; scrollbar-width:thin; }
+    .menu-nav a{ white-space:nowrap; }
+    .reservation-panel{ align-items:flex-start; }
+  }
+
+  /* ============ ATMOSPHERE ============ */
+  .atmos-timeline{
+    display:flex; flex-direction:column;
+  }
+  .atmos-row{
+    display:grid;
+    grid-template-columns:8rem 1fr;
+    gap:var(--gap);
+    padding-block:clamp(2rem, 5vh, 3rem);
+    border-top:1px solid var(--line);
+    align-items:start;
+  }
+  .atmos-row:last-child{ border-bottom:1px solid var(--line); }
+  .atmos-time{
+    font-family:var(--f-display);
+    font-size:clamp(2rem, 4vw, 3rem);
+    color:var(--blood-glow);
+    line-height:1;
+  }
+  .atmos-time span{
+    display:block; margin-top:0.5rem;
+    font-family:var(--f-label);
+    font-size:0.65rem; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--muted);
+  }
+  .atmos-text h3{
+    font-size:clamp(1.4rem, 2.6vw, 1.9rem);
+    margin-bottom:0.6rem;
+  }
+  .atmos-text p{
+    color:var(--bone-dim);
+    max-width:42rem;
+  }
+
+  /* ============ FEATURES ============ */
+  .feature-tags{
+    list-style:none; margin:0 0 clamp(3rem, 7vh, 5rem); padding:0;
+    display:flex; flex-wrap:wrap; gap:0.8rem;
+  }
+  .feature-tags li{
+    font-family:var(--f-label);
+    font-size:0.78rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--bone-dim);
+    border:1px solid var(--line-strong);
+    padding:0.7rem 1.2rem;
+    transition:border-color 0.25s ease, color 0.25s ease;
+  }
+  .feature-tags li:hover{ border-color:var(--blood-glow); color:var(--bone); }
+
+  .impressions-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:var(--gap);
+    padding-top:clamp(2.5rem, 6vh, 4rem);
+    border-top:1px solid var(--line);
+  }
+  .impression-text{
+    font-family:var(--f-display);
+    text-transform:none;
+    font-size:clamp(1.15rem, 2vw, 1.4rem);
+    line-height:1.35;
+    color:var(--bone);
+    margin-bottom:0.9rem;
+  }
+  .impression-source{
+    font-family:var(--f-label);
+    font-size:0.72rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  /* ============ CONTACTS ============ */
+  .contacts-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:var(--gap);
+  }
+  .contact-block h3{
+    font-family:var(--f-label);
+    text-transform:uppercase;
+    font-size:0.78rem;
+    letter-spacing:0.16em;
+    color:var(--muted);
+    margin-bottom:1rem;
+  }
+  .contact-block p, .contact-block address{
+    font-style:normal;
+    color:var(--bone-dim);
+    font-size:1.02rem;
+    line-height:1.7;
+  }
+  .contact-block a{
+    color:var(--bone);
+    border-bottom:1px solid var(--line-blood);
+    transition:color 0.25s ease, border-color 0.25s ease;
+  }
+  .contact-block a:hover, .contact-block a:focus-visible{ color:var(--blood-glow); border-color:var(--blood-glow); }
+  .socials{
+    display:flex; gap:1.2rem; margin-top:1rem;
+    font-family:var(--f-label); text-transform:uppercase; font-size:0.8rem; letter-spacing:0.08em;
+  }
+  .hours-row{
+    display:flex; justify-content:space-between;
+    padding-block:0.5rem;
+    border-bottom:1px solid var(--line);
+    font-size:0.95rem;
+  }
+  .hours-row span:first-child{ color:var(--bone-dim); }
+  .hours-row span:last-child{ font-family:var(--f-label); color:var(--bone); }
+
+  /* ============ FOOTER ============ */
+  .site-footer{
+    border-top:1px solid var(--line);
+    padding-block:3rem clamp(6rem, 10vh, 3rem);
+    position:relative;
+    overflow:hidden;
+  }
+  .footer-inner{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    flex-wrap:wrap; gap:1.5rem;
+  }
+  .footer-word{
+    font-family:var(--f-display);
+    font-size:clamp(3rem, 12vw, 9rem);
+    line-height:0.8;
+    color:transparent;
+    -webkit-text-stroke:1px var(--line-strong);
+    white-space:nowrap;
+  }
+  .footer-meta{
+    font-family:var(--f-label);
+    font-size:0.75rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:flex; flex-direction:column; gap:0.4rem;
+  }
+
+  /* ============ MOBILE CTA ============ */
+  .mobile-cta{
+    display:none;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 900px){
+    .nav-links, .nav-cta{ display:none; }
+    .nav-toggle{ display:block; }
+    .about-grid{ grid-template-columns:1fr; }
+    .about-divider{ width:100%; height:1px; }
+    .menu-list{ grid-template-columns:1fr; }
+    .contacts-grid{ grid-template-columns:1fr; gap:2.5rem; }
+    .atmos-row{ grid-template-columns:1fr; gap:0.6rem; }
+    .impressions-grid{ grid-template-columns:1fr; gap:2rem; }
+    body{ padding-bottom:5.2rem; }
+    .mobile-cta{
+      display:flex;
+      position:fixed; left:0; right:0; bottom:0; z-index:700;
+      padding:0.9rem 1rem calc(0.9rem + env(safe-area-inset-bottom));
+      background:rgba(10,8,8,0.92);
+      backdrop-filter:blur(10px);
+      border-top:1px solid var(--line-strong);
+    }
+    .mobile-cta .btn{ width:100%; text-align:center; }
+  }
+
+  @media (max-width: 560px){
+    .hero-title{ font-size:clamp(3.4rem, 18vw, 6rem); }
+    .footer-inner{ flex-direction:column; align-items:flex-start; }
+  }
+
+  /* nav drawer (mobile) */
+  .nav-drawer{
+    position:fixed; inset:0; z-index:800;
+    background:rgba(8,6,6,0.98);
+    display:flex; flex-direction:column;
+    justify-content:center;
+    gap:2rem;
+    padding:2rem;
+    transform:translateY(-100%);
+    transition:transform 0.4s ease;
+  }
+  .nav-drawer.open{ transform:translateY(0); }
+  .nav-drawer ul{
+    list-style:none; margin:0; padding:0;
+    display:flex; flex-direction:column; gap:1.5rem;
+  }
+  .nav-drawer a{
+    font-family:var(--f-display);
+    font-size:2.2rem;
+    text-transform:uppercase;
+    color:var(--bone);
+  }
+  .nav-drawer .btn{ align-self:flex-start; }
+  .nav-drawer-close{
+    position:absolute; top:1.4rem; right:1.4rem;
+    background:none; border:1px solid var(--line-strong);
+    color:var(--bone); width:44px; height:44px;
+    font-family:var(--f-label); cursor:pointer;
+  }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Перейти к содержимому</a>
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<header class="site-header" id="siteHeader">
+  <div class="container nav-inner">
+    <a href="#hero" class="logo" aria-label="БЕЗДНА — на главную">
+<img src="Resurs-1-11.svg" alt="БЕЗДНА"></a>
+    <nav aria-label="Основная навигация">
+      <ul class="nav-links">
+        <li><a href="#about">О баре</a></li>
+        <li><a href="#menu">Меню</a></li>
+        <li><a href="#atmosphere">Атмосфера</a></li>
+        <li><a href="#features">Особенности</a></li>
+        <li><a href="#contacts">Контакты</a></li>
+      </ul>
+    </nav>
+    <a href="#contacts" class="nav-cta">Забронировать стол</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="navDrawer">☰</button>
+  </div>
+</header>
+
+<div class="nav-drawer" id="navDrawer" hidden aria-hidden="true">
+  <button class="nav-drawer-close" id="navClose" aria-label="Закрыть меню">✕</button>
+  <ul>
+    <li><a href="#about">О баре</a></li>
+    <li><a href="#menu">Меню</a></li>
+    <li><a href="#atmosphere">Атмосфера</a></li>
+    <li><a href="#features">Особенности</a></li>
+    <li><a href="#contacts">Контакты</a></li>
+  </ul>
+  <a href="#contacts" class="btn btn-primary">Забронировать стол</a>
+</div>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero" aria-label="Заглавный экран">
+    <div class="hero-visual" aria-hidden="true" id="heroVisual">
+      <svg class="hero-rings" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="fade" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#e0392f" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#e0392f" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="400" cy="400" r="120" fill="none" stroke="#7a1414" stroke-opacity="0.5" stroke-width="1"/>
+        <circle cx="400" cy="400" r="200" fill="none" stroke="#7a1414" stroke-opacity="0.4" stroke-width="1"/>
+        <circle cx="400" cy="400" r="280" fill="none" stroke="#7a1414" stroke-opacity="0.3" stroke-width="1"/>
+        <circle cx="400" cy="400" r="360" fill="none" stroke="#7a1414" stroke-opacity="0.2" stroke-width="1"/>
+        <circle cx="400" cy="400" r="60" fill="url(#fade)"/>
+        <g stroke="#b32020" stroke-opacity="0.35" stroke-width="1">
+          <line x1="400" y1="400" x2="400" y2="20"/>
+          <line x1="400" y1="400" x2="400" y2="780"/>
+          <line x1="400" y1="400" x2="20" y2="400"/>
+          <line x1="400" y1="400" x2="780" y2="400"/>
+          <line x1="400" y1="400" x2="130" y2="130"/>
+          <line x1="400" y1="400" x2="670" y2="670"/>
+          <line x1="400" y1="400" x2="130" y2="670"/>
+          <line x1="400" y1="400" x2="670" y2="130"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="hero-content">
+      <div class="container">
+        <p class="eyebrow">Тапрум и кухня</p>
+        <h1 class="hero-title">БЕЗ<br><em>ДНА</em></h1>
+        <p class="hero-sub">Комната с кранами на Рижском проспекте — и куда больше, чем кажется с порога. <strong>Крафтовое пиво</strong>, кухня без полуфабрикатов и щупальца на стенах вместо декора.</p>
+        <div class="hero-ctas">
+          <a href="https://t.me/abyss_calling" class="btn btn-primary" target="_blank" rel="noopener">Забронировать стол</a>
+          <a href="#menu" class="btn btn-ghost">Посмотреть меню</a>
+        </div>
+        <div class="hero-badges">
+          <span><b>Поздние</b> часы работы</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>Крафт на кранах</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>Кухня полного цикла</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-meta">
+      <div class="container">
+        <span class="scroll-cue">Пролистайте вниз</span>
+        <span>Рижский пр., 12 · м. Балтийская · ежедневно 16:00 — 03:00</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" aria-labelledby="about-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">О баре</p>
+        <h2 class="section-title" id="about-title">Комната с кранами.<br><span class="accent">И не только.</span></h2>
+      </div>
+      <div class="about-grid">
+        <p class="about-quote">Название формата — тапрум. По сути — стена кранов с крафтовым пивом. По ощущениям — гораздо больше, чем просто бар.</p>
+        <div class="about-divider" aria-hidden="true"></div>
+        <div class="about-body">
+          <p class="lead">«Бездна» — тапрум и кухня на Рижском проспекте, в паре минут от «Балтийской».</p>
+          <p>Снаружи — лаконичная вывеска, внутри — большой выбор пива на кранах, кухня полного цикла и щупальца, расползающиеся по стенам. Музыка здесь не заглушает разговор: гостям важно слышать друг друга, а не только бас из колонок.</p>
+          <p>Бургеры, рёбра и пицца. </p>
+          <div class="about-stats">
+            <div><b>16–03</b><span>ежедневно</span></div>
+            <div><b>Taproom</b><span>краны и кухня</span></div>
+            <div><b>10 мин</b><span>от Балтийской</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MENU ============ -->
+  <section id="menu" aria-labelledby="menu-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Меню</p>
+        <h2 class="section-title" id="menu-title">Карта <span class="accent">меню </span></h2>
+      </div>
+
+      <nav class="menu-nav" aria-label="Категории меню">
+        <a href="#cat-bones">На кости</a>
+        <a href="#cat-snacks">Закуски</a>
+        <a href="#cat-burgers">Бургеры</a>
+        <a href="#cat-pizza">Пицца</a>
+        <a href="#cat-hot">Горячее и супы</a>
+        <a href="#cat-beer">Пивные сеты и баскеты</a>
+      </nav>
+      <p class="menu-note">Часть позиций и цены могут меняться. Актуальное наличие и свежие краны лучше уточнять у бармена или в Telegram.</p>
+
+      <article class="menu-category" id="cat-bones">
+        <div class="menu-category-head">
+          <span class="menu-category-num">01</span>
+          <h3 class="menu-category-title">На кости</h3>
+        </div>
+        <ul class="menu-list">
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Свиные рёбра</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">1200 ₽</span>
+            </div>
+            <p class="menu-item-desc">550/70 г · выберите соус: BBQ / медово-горчичный / Jack Daniel's / фирменный с фисташкой-беконом</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Говяжьи рёбра</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">от 1650 ₽</span>
+            </div>
+            <p class="menu-item-desc">610/70/100 г · выберите вариант: BBQ — 1650 ₽ / Jack Daniel's — 1650 ₽ / шоколадный BBQ с попкорном — 2000 ₽</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Куриные крылья</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">350 ₽</span>
+            </div>
+            <p class="menu-item-desc">260 г · выберите вкус: медово-горчичные / BBQ / Том Ям; панировка: классическая или острая</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Голени куриные</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">400 ₽</span>
+            </div>
+            <p class="menu-item-desc">300 г · в панировке, соус на выбор</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Мидии в соусе-бульоне</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">1380 ₽</span>
+            </div>
+            <p class="menu-item-desc">110/45/40 г · блю чиз, том ям, сливочно-чесночный или томатный, с булочкой песто</p>
+          </li>
+        </ul>
+      </article>
+
+      <article class="menu-category" id="cat-snacks">
+        <div class="menu-category-head">
+          <span class="menu-category-num">02</span>
+          <h3 class="menu-category-title">Закуски</h3>
+        </div>
+        <ul class="menu-list">
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Стрипсы</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">350 ₽</span>
+            </div>
+            <p class="menu-item-desc">150/40 г · классические или острые, соус на выбор</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Салат «Цезарь»</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">450 ₽</span>
+            </div>
+            <p class="menu-item-desc">300 г · куриный шницель, томаты черри, пармезан</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Селёдочка под водочку</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">400 ₽</span>
+            </div>
+            <p class="menu-item-desc">120/150/40 г · филе сельди, картофель, маринованный красный лук</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Фиш энд чипс</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">600 ₽</span>
+            </div>
+            <p class="menu-item-desc">120/100/40 г · филе трески в панировке, картофель фри, соус тартар</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Креветки «Панко»</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">650 ₽</span>
+            </div>
+            <p class="menu-item-desc">120/40 г · тигровые креветки в хрустящей панировке, соус сладкий чили</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Кесадилья</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">600 / 650 ₽</span>
+            </div>
+            <p class="menu-item-desc">240/40/40 г · выберите начинку: кура — 600 ₽ / говядина — 650 ₽; соусы: гуакамоле и сладкий чили</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Картофель Фришка / Айдахо</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">250 ₽</span>
+            </div>
+            <p class="menu-item-desc">100 г · выберите: Фришка или Айдахо; соус за отдельную плату</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Фалафель</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">300 ₽</span>
+            </div>
+            <p class="menu-item-desc">170/40 г · шарики из нута и кинзы, мятный йогуртовый соус</p>
+          </li>
+        </ul>
+      </article>
+
+      <article class="menu-category" id="cat-burgers">
+        <div class="menu-category-head">
+          <span class="menu-category-num">03</span>
+          <h3 class="menu-category-title">Бургеры</h3>
+        </div>
+        <ul class="menu-list">
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Двабро</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">850 ₽</span>
+            </div>
+            <p class="menu-item-desc">390/70/40 г · говяжья котлета, бекон, чеддер, огурчики пикули</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Техас</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">650 ₽</span>
+            </div>
+            <p class="menu-item-desc">380/70/40 г · куриные стрипсы, соус жгучий, халапеньо, бекон</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Томлёнка</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">800 ₽</span>
+            </div>
+            <p class="menu-item-desc">385/70/40 г · томлёная говядина су-вид, гуакамоле, сырный соус, лук фри</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">С рваной свининой</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">650 ₽</span>
+            </div>
+            <p class="menu-item-desc">400/70/40 г · свинина су-вид, соус барбекю, чеддер</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Чикен</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">600 ₽</span>
+            </div>
+            <p class="menu-item-desc">350/70/40 г · куриная котлета в панировке, соус тартар</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Фиш</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">650 ₽</span>
+            </div>
+            <p class="menu-item-desc">350/70/40 г · треска в панировке, свежий огурец, соус тартар</p>
+          </li>
+        </ul>
+      </article>
+
+      <article class="menu-category" id="cat-pizza">
+        <div class="menu-category-head">
+          <span class="menu-category-num">04</span>
+          <h3 class="menu-category-title">Пицца</h3>
+        </div>
+        <ul class="menu-list">
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Маргарита</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">550 ₽</span>
+            </div>
+            <p class="menu-item-desc">650 г · моцарелла, голландский сыр, томат, орегано</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">5 сыров</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">770 ₽</span>
+            </div>
+            <p class="menu-item-desc">630 г · моцарелла, дорблю, пармезан, чеддер</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Дьяволица</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">880 ₽</span>
+            </div>
+            <p class="menu-item-desc">680 г · чоризо, халапеньо, острый соус шрирача</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Мясная</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">880 ₽</span>
+            </div>
+            <p class="menu-item-desc">700 г · ветчина, бекон, томлёное куриное бедро</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Пепперони</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">700 ₽</span>
+            </div>
+            <p class="menu-item-desc">570 г · острая колбаска чоризо, маслины</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Фокачча</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">150 ₽</span>
+            </div>
+            <p class="menu-item-desc">110 г · с пряным маслом и пармезаном</p>
+          </li>
+        </ul>
+      </article>
+
+      <article class="menu-category" id="cat-hot">
+        <div class="menu-category-head">
+          <span class="menu-category-num">05</span>
+          <h3 class="menu-category-title">Горячее и супы</h3>
+        </div>
+        <ul class="menu-list">
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Корейка на гриле</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">550 ₽</span>
+            </div>
+            <p class="menu-item-desc">170/150 г · в фирменной глазури, картофельные дольки, маринованный лук</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Окорочок утиный</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">700 ₽</span>
+            </div>
+            <p class="menu-item-desc">170/150 г · су-вид, апельсиново-медовый соус</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Баварские колбаски</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">650 ₽</span>
+            </div>
+            <p class="menu-item-desc">250/120/30 г · бараньи, говяжьи или куриные, тушёная капуста</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Борщ</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">550 ₽</span>
+            </div>
+            <p class="menu-item-desc">350/100/30 г · на говяжьем бульоне, с пампушками и сметаной</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Солянка</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">450 ₽</span>
+            </div>
+            <p class="menu-item-desc">350/100/30 г · копчёности, маринованные огурчики, маслины</p>
+          </li>
+        </ul>
+      </article>
+
+      <article class="menu-category" id="cat-beer">
+        <div class="menu-category-head">
+          <span class="menu-category-num">06</span>
+          <h3 class="menu-category-title">Пивные сеты и баскеты</h3>
+        </div>
+        <ul class="menu-list">
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Пивной сет S</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">900 ₽</span>
+            </div>
+            <p class="menu-item-desc">550/70 г · стрипсы куриные, кольца луковые, гренки, Айдахо, два соуса на выбор</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Пивной сет M</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">1800 ₽</span>
+            </div>
+            <p class="menu-item-desc">1020/40/40 г · стрипсы, сырные палочки, кольца луковые, гренки, крылья BBQ, Айдахо</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Пивной сет L</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">3200 ₽</span>
+            </div>
+            <p class="menu-item-desc">1800/40/40 г · всё из сета M плюс креветки Панко и рёбра BBQ</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Баскет «18 крыльев»</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">900 ₽</span>
+            </div>
+            <p class="menu-item-desc">840 г · крылья в панировке, два соуса на выбор</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Баскет «Дуэт»</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">900 ₽</span>
+            </div>
+            <p class="menu-item-desc">560/410 г · крылья в панировке и стрипсы куриные, два соуса на выбор</p>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-row">
+              <span class="menu-item-name">Баскет «Трио»</span>
+              <span class="menu-item-leader" aria-hidden="true"></span>
+              <span class="menu-item-price">800 ₽</span>
+            </div>
+            <p class="menu-item-desc">280/205/300 г · крылья в панировке, стрипсы куриные и голени, два соуса на выбор</p>
+          </li>
+        </ul>
+      </article>
+
+      <p style="margin-top:2.5rem; font-style:italic; color:var(--muted); font-size:2rem;">Выбор напитков и заказ — на баре.</p>
+    </div>
+  </section>
+
+  <!-- ============ ATMOSPHERE ============ -->
+  <section id="atmosphere" aria-labelledby="atmos-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Атмосфера</p>
+        <h2 class="section-title" id="atmos-title">Один <span class="accent">день</span>, три глубины</h2>
+      </div>
+      <div class="atmos-timeline">
+        <div class="atmos-row">
+          <div class="atmos-time">16:00<span>открытие</span></div>
+          <div class="atmos-text">
+            <h3>Поверхность</h3>
+            <p>Двери открываются, на кранах уже налиты крафтовые новинки дня. Тихо, спокойно, можно занять место у стойки и без спешки изучить, что сегодня разливают.</p>
+          </div>
+        </div>
+        <div class="atmos-row">
+          <div class="atmos-time">22:00<span>пик</span></div>
+          <div class="atmos-text">
+            <h3>Толща</h3>
+            <p>Самое оживлённое время вечера: экраны показывают спортивные трансляции, кухня работает без пауз, у стойки собирается очередь за следующим бокалом. При этом разговор всё ещё слышно — громкую музыку здесь не жалуют.</p>
+          </div>
+        </div>
+        <div class="atmos-row">
+          <div class="atmos-time">03:00<span>закрытие</span></div>
+          <div class="atmos-text">
+            <h3>Дно</h3>
+            <p>Последние бокалы, тихие разговоры, щупальца на стенах и красный свет — единственное, что остаётся до самого закрытия. Бар работает так каждый день, без выходных.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURES ============ -->
+  <section id="features" aria-labelledby="features-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Особенности</p>
+        <h2 class="section-title" id="features-title">Что здесь <span class="accent">ценят</span></h2>
+      </div>
+
+      <ul class="feature-tags">
+        <li>Крафтовое пиво на кранах</li>
+        <li>Кухня полного цикла</li>
+        <li>Спортивные трансляции</li>
+        <li>Wi-Fi</li>
+        <li>Можно с собакой</li>
+        <li>Оплата картой и наличными</li>
+        <li>Самовывоз и доставка</li>
+        <li>Скидки на еду</li>
+      </ul>
+
+      <div class="impressions-grid">
+        <div class="impression">
+          <p class="impression-text">Гости отмечают, что здесь можно услышать собеседника — музыка звучит фоном, а не перекрикивает разговор.</p>
+          <span class="impression-source">— из отзывов на Яндекс Картах</span>
+        </div>
+        <div class="impression">
+          <p class="impression-text">Отдельно хвалят порции: бургеры с томлёным мясом называют одними из лучших в городе, а рёбра и наливки — поводом вернуться снова.</p>
+          <span class="impression-source">— из отзывов на Яндекс Картах</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACTS ============ -->
+  <section id="contacts" aria-labelledby="contacts-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Контакты</p>
+        <h2 class="section-title" id="contacts-title">Найти <span class="accent">вход</span></h2>
+      </div>
+      <div class="contacts-grid">
+        <div class="contact-block">
+          <h3>Адрес</h3>
+          <address>Санкт-Петербург,<br>Рижский пр., 12<br>м. «Балтийская», 960 м пешком</address>
+          <p style="margin-top:1rem;"><a href="tel:+79679765656">+7 (967) 976-56-56</a></p>
+          <p style="margin-top:0.6rem;"><a href="https://yandex.ru/maps/2/saint-petersburg/?ll=30.295161%2C59.914218&amp;mode=poi&amp;poi%5Bpoint%5D=30.294864%2C59.913779&amp;poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D35090945432&amp;z=17.64" target="_blank" rel="noopener">Проложить маршрут →</a></p>
+        </div>
+        <div class="contact-block">
+          <h3>Часы работы</h3>
+          <div class="hours-row"><span>Ежедневно</span><span>16:00 — 03:00</span></div>
+          <p style="margin-top:1rem; font-size:0.9rem;">5.0 ★ на Яндекс Картах, 521 отзыв, награда «Лучшее место 2026»</p>
+        </div>
+        <div class="contact-block">
+          <h3>Бронирование</h3>
+          <p>Столы бронируются по телефону или в Telegram. Заведение можно посетить с собакой.</p>
+          <a href="https://t.me/abyss_calling" class="btn btn-primary" style="margin-top:1.2rem;" target="_blank" rel="noopener">Забронировать стол</a>
+          <div class="socials">
+            <a href="https://t.me/abyss_calling" target="_blank" rel="noopener" aria-label="Бездна в Telegram">Telegram</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span class="footer-word" aria-hidden="true">БЕЗДНА</span>
+    <div class="footer-meta">
+      <span>© <span id="year"></span> Тапрум и кухня «Бездна»</span>
+      <span>Рижский пр., 12, Санкт-Петербург</span>
+      <span>18+ · +7 (967) 976-56-56 · t.me/abyss_calling</span>
+    </div>
+  </div>
+</footer>
+
+<div class="mobile-cta">
+  <a href="https://t.me/abyss_calling" class="btn btn-primary" target="_blank" rel="noopener">Забронировать стол</a>
+</div>
+
+<script>
+const header = document.getElementById('siteHeader');
+const navToggle = document.getElementById('navToggle');
+const navClose = document.getElementById('navClose');
+const navDrawer = document.getElementById('navDrawer');
+const drawerLinks = navDrawer.querySelectorAll('a');
+const navLinks = document.querySelectorAll('.nav-links a');
+const menuLinks = document.querySelectorAll('.menu-nav a');
+const sections = document.querySelectorAll('main section[id]');
+const heroVisual = document.getElementById('heroVisual');
+let lastFocused = null;
+
+function setHeaderState(){
+  header.classList.toggle('scrolled', window.scrollY > 24);
+}
+setHeaderState();
+window.addEventListener('scroll', setHeaderState, { passive: true });
+
+function openDrawer(){
+  lastFocused = document.activeElement;
+  navDrawer.hidden = false;
+  requestAnimationFrame(() => navDrawer.classList.add('open'));
+  navDrawer.setAttribute('aria-hidden', 'false');
+  navToggle.setAttribute('aria-expanded', 'true');
+  document.body.classList.add('nav-open');
+  document.getElementById('main').inert = true;
+  navClose.focus();
+}
+
+function closeDrawer(){
+  navDrawer.classList.remove('open');
+  navDrawer.setAttribute('aria-hidden', 'true');
+  navToggle.setAttribute('aria-expanded', 'false');
+  document.body.classList.remove('nav-open');
+  document.getElementById('main').inert = false;
+  setTimeout(() => { navDrawer.hidden = true; }, 320);
+  if (lastFocused) lastFocused.focus();
+}
+
+navToggle.addEventListener('click', () => {
+  if (navDrawer.classList.contains('open')) closeDrawer();
+  else openDrawer();
+});
+navClose.addEventListener('click', closeDrawer);
+navDrawer.addEventListener('click', (e) => {
+  if (e.target === navDrawer) closeDrawer();
+});
+drawerLinks.forEach(link => link.addEventListener('click', closeDrawer));
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && navDrawer.classList.contains('open')) closeDrawer();
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const id = entry.target.id;
+    navLinks.forEach(link => link.classList.toggle('is-active', link.getAttribute('href') === `#${id}`));
+  });
+}, { rootMargin: '-35% 0px -50% 0px', threshold: 0.01 });
+sections.forEach(section => observer.observe(section));
+
+const menuObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const id = entry.target.id;
+    menuLinks.forEach(link => link.classList.toggle('is-active', link.getAttribute('href') === `#${id}`));
+  });
+}, { rootMargin: '-25% 0px -65% 0px', threshold: 0.01 });
+document.querySelectorAll('.menu-category').forEach(section => menuObserver.observe(section));
+
+window.addEventListener('scroll', () => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const y = window.scrollY * 0.08;
+  heroVisual.style.transform = `translate3d(0, ${y}px, 0)`;
+}, { passive: true });
+</script>
+</body>
+</html>
