@@ -17,13 +17,13 @@ export const metadata: Metadata = {
     siteName: "БЕЗДНА",
     title: "БЕЗДНА — тапрум и кухня, Санкт-Петербург",
     description: "Тёмный тапрум и кухня на Рижском проспекте: краны с крафтом, бургеры, рёбра, пицца и ночной вайб Бездны.",
-    images: [{ url: "/og.png?v=2", width: 4128, height: 1024, alt: "БЕЗДНА — тапрум и кухня на Рижском проспекте, 12" }],
+    images: [{ url: "/og-bezdna-20260807.png", width: 4128, height: 1024, alt: "БЕЗДНА — тапрум и кухня на Рижском проспекте, 12" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "БЕЗДНА — тапрум и кухня, Санкт-Петербург",
     description: "Тёмный тапрум и кухня на Рижском проспекте: краны с крафтом, бургеры, рёбра и пицца.",
-    images: ["/og.png?v=2"],
+    images: ["/og-bezdna-20260807.png"],
   },
   icons: {
     icon: [{ url: "/favicon.svg?v=2", type: "image/svg+xml", sizes: "any" }],
