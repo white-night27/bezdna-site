@@ -13,6 +13,17 @@ export const venue = {
   "mapUrl": "https://yandex.ru/maps/2/saint-petersburg/?ll=30.295161%2C59.914218&mode=poi&poi%5Bpoint%5D=30.294864%2C59.913779&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D35090945432&z=17.64"
 } as const;
 
+// Legal owner details. Keep these separate from the venue address above.
+export const legalDetails = {
+  ownerName: "ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ «Б Е З Д Н А ТАПРУМ И КУХНЯ»",
+  ownerShortName: "ООО «Б Е З Д Н А ТАПРУМ И КУХНЯ»",
+  inn: "7838123412",
+  ogrn: "1247800055029",
+  legalAddress:
+    "г. Санкт-Петербург, вн.тер. г. муниципальный округ Екатерингофский, пр-кт Рижский, д. 12, лит А, помещ. 13-Н",
+  email: "k.pimanov@yandex.ru",
+} as const;
+
 export const navigation = [
   [
     "О баре",

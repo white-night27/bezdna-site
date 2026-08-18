@@ -1,4 +1,4 @@
-import { features, menuCategories, navigation, venue } from "./content";
+import { features, legalDetails, menuCategories, navigation, venue } from "./content";
 import SiteInteractions from "./site-interactions";
 
 const atmosphere = [
@@ -296,8 +296,13 @@ export default function Home() {
           <span className="footer-word" aria-hidden="true">БЕЗДНА</span>
           <div className="footer-meta">
             <span>© {new Date().getFullYear()} Тапрум и кухня «Бездна»</span>
-            <span>Рижский пр., 12, Санкт-Петербург</span>
-            <span>18+ · {venue.phone} · t.me/abyss_calling</span>
+            <span><b>Адрес заведения:</b> Санкт-Петербург, Рижский пр., 12</span>
+            <span>
+              18+ · <a href={venue.phoneHref}>{venue.phone}</a> ·{" "}
+              <a href={venue.telegramUrl} target="_blank" rel="noopener noreferrer">Telegram</a>
+            </span>
+            <span className="footer-legal-owner">Владелец сайта: {legalDetails.ownerShortName}</span>
+            <a className="footer-legal-link" href="/legal">Правовая информация</a>
           </div>
         </div>
       </footer>
