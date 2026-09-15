@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { features, legalDetails, menuCategories, navigation, venue } from "./content";
 import SiteInteractions from "./site-interactions";
 
@@ -34,7 +35,7 @@ export default function Home() {
       <header className="site-header" id="siteHeader">
         <div className="container nav-inner">
           <a href="#hero" className="logo" aria-label="БЕЗДНА — на главную">
-            <img src="/logo.svg" alt="БЕЗДНА" width="995" height="826" />
+            <Image src="/logo.svg" alt="БЕЗДНА" width={995} height={826} priority />
           </a>
           <nav aria-label="Основная навигация">
             <ul className="nav-links">
@@ -45,8 +46,8 @@ export default function Home() {
               ))}
             </ul>
           </nav>
-          <a href="#contacts" className="nav-cta">
-            Забронировать стол
+          <a href={venue.phoneHref} className="nav-cta" data-conversion="phone-header">
+            Позвонить
           </a>
           <button
             className="nav-toggle"
@@ -71,8 +72,8 @@ export default function Home() {
             </li>
           ))}
         </ul>
-        <a href="#contacts" className="btn btn-primary">
-          Забронировать стол
+        <a href={venue.phoneHref} className="btn btn-primary" data-conversion="phone-menu">
+          Позвонить и забронировать
         </a>
       </div>
 
@@ -124,8 +125,8 @@ export default function Home() {
                 Комната с кранами на Рижском проспекте — и куда больше, чем кажется с порога. <strong>Крафтовое пиво</strong>, кухня без полуфабрикатов и щупальца на стенах вместо декора.
               </p>
               <div className="hero-ctas">
-                <a href={venue.telegramUrl} className="btn btn-primary" target="_blank" rel="noopener noreferrer">
-                  Забронировать стол
+                <a href={venue.phoneHref} className="btn btn-primary" data-conversion="phone-hero">
+                  Позвонить и забронировать
                 </a>
                 <a href="#menu" className="btn btn-ghost">
                   Посмотреть меню
@@ -182,35 +183,20 @@ export default function Home() {
                 Кухня <span className="accent">Бездны</span>
               </h2>
             </div>
-            <p className="menu-note">Цены и состав блюд приведены по актуальному меню. Наличие отдельных позиций уточняйте в баре.</p>
-            <nav className="menu-nav" aria-label="Категории меню">
+            <p className="menu-note">Рёбра, бургеры, пицца, горячее и закуски. Цены, состав и вес собраны на отдельной странице — её удобнее открыть за столом или перед визитом.</p>
+            <ul className="menu-category-cards" aria-label="Разделы меню">
               {menuCategories.map((category) => (
-                <a href={`#${category.id}`} key={category.id}>{category.title}</a>
+                <li key={category.id}>
+                  <span>{category.number}</span>
+                  <strong>{category.title}</strong>
+                  <small>{category.items.length} позиций</small>
+                </li>
               ))}
-            </nav>
-
-            {menuCategories.map((category) => (
-              <article className="menu-category" id={category.id} key={category.id}>
-                <div className="menu-category-head">
-                  <span className="menu-category-num">{category.number}</span>
-                  <h3 className="menu-category-title">{category.title}</h3>
-                </div>
-                <ul className="menu-list">
-                  {category.items.map((item) => (
-                    <li className="menu-item" key={`${category.id}-${item.name}`}>
-                      <div className="menu-item-row">
-                        <span className="menu-item-name">{item.name}</span>
-                        <span className="menu-item-leader" aria-hidden="true" />
-                        <span className="menu-item-price">{item.price}</span>
-                      </div>
-                      <p className="menu-item-desc">{item.description}</p>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-
-            <p className="menu-drinks-note">Выбор напитков и заказ — на баре.</p>
+            </ul>
+            <div className="menu-actions">
+              <a href="/menu" className="btn btn-primary" data-conversion="menu-full">Открыть полное меню</a>
+              <a href={venue.phoneHref} className="btn btn-ghost" data-conversion="phone-menu-section">Уточнить наличие</a>
+            </div>
           </div>
         </section>
 
@@ -247,14 +233,15 @@ export default function Home() {
             <ul className="feature-tags">
               {features.map((feature) => <li key={feature}>{feature}</li>)}
             </ul>
-            <div className="impressions-grid">
+            <div className="impressions-grid first-visit-grid">
               <div className="impression">
-                <p className="impression-text">Гости отмечают, что здесь можно услышать собеседника — музыка звучит фоном, а не перекрикивает разговор.</p>
-                <span className="impression-source">— из отзывов на Яндекс Картах</span>
+                <h3>Первый визит</h3>
+                <p className="impression-text">Посмотрите меню заранее, откройте точку на карте и позвоните, если нужен стол на конкретное время.</p>
               </div>
               <div className="impression">
-                <p className="impression-text">Отдельно хвалят порции: бургеры с томлёным мясом называют одними из лучших в городе, а рёбра и наливки — поводом вернуться снова.</p>
-                <span className="impression-source">— из отзывов на Яндекс Картах</span>
+                <h3>Отзывы и фотографии</h3>
+                <p className="impression-text">Проверьте свежие впечатления гостей и фотографии заведения в карточке 2ГИС.</p>
+                <a className="source-link" href={venue.twoGisUrl} target="_blank" rel="noopener noreferrer">Открыть 2ГИС →</a>
               </div>
             </div>
           </div>
@@ -269,22 +256,23 @@ export default function Home() {
             <div className="contacts-grid">
               <div className="contact-block">
                 <h3>Адрес</h3>
-                <address>{venue.address}<br />м. «{venue.metro}», {venue.distance}</address>
+                <address>{venue.address}<br />ближайшее метро — «{venue.metro}»</address>
                 <p className="contact-phone"><a href={venue.phoneHref}>{venue.phone}</a></p>
-                <p className="route-link"><a href={venue.mapUrl} target="_blank" rel="noopener noreferrer">Проложить маршрут →</a></p>
+                <p className="route-link"><a href={venue.mapUrl} target="_blank" rel="noopener noreferrer" data-conversion="route-yandex">Открыть на Яндекс Картах →</a></p>
               </div>
               <div className="contact-block">
                 <h3>Часы работы</h3>
                 <div className="hours-row"><span>Ежедневно</span><span>{venue.hours}</span></div>
-                <p className="rating-note">5.0 ★ на Яндекс Картах, 521 отзыв, награда «Лучшее место 2026»</p>
+                <p className="contact-note">Время работы кухни и наличие отдельных позиций лучше уточнить по телефону перед поздним визитом.</p>
               </div>
               <div className="contact-block">
                 <h3>Бронирование</h3>
-                <p>Столы бронируются по телефону или в Telegram. Заведение можно посетить с собакой.</p>
-                <a href={venue.telegramUrl} className="btn btn-primary booking-button" target="_blank" rel="noopener noreferrer">Забронировать стол</a>
+                <p>Позвоните сотруднику, чтобы уточнить свободный стол на нужные дату и время.</p>
+                <a href={venue.phoneHref} className="btn btn-primary booking-button" data-conversion="phone-contacts">Позвонить и забронировать</a>
                 <div className="socials">
-                  <a href={venue.telegramUrl} target="_blank" rel="noopener noreferrer" aria-label="Бездна в Telegram">Telegram</a>
+                  <a href={venue.telegramUrl} target="_blank" rel="noopener noreferrer" aria-label="Сообщество Бездны в Telegram">Telegram-сообщество</a>
                 </div>
+                <p className="contact-note">Telegram — новости и общение. Для брони используйте телефон.</p>
               </div>
             </div>
           </div>
@@ -307,9 +295,9 @@ export default function Home() {
         </div>
       </footer>
 
-      <div className="mobile-cta">
-        <a href={venue.telegramUrl} className="btn btn-primary" target="_blank" rel="noopener noreferrer">Забронировать стол</a>
-      </div>
+      <aside className="mobile-cta" aria-label="Быстрое бронирование">
+        <a href={venue.phoneHref} className="btn btn-primary" data-conversion="phone-mobile">Позвонить и забронировать</a>
+      </aside>
 
       <SiteInteractions />
     </>

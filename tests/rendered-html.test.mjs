@@ -11,16 +11,39 @@ async function readBuiltHomeHtml() {
   return readFile(new URL(`../.next/server/app/${htmlPath}`, import.meta.url), "utf8");
 }
 
+async function readBuiltRouteHtml(route) {
+  const appDir = new URL("../.next/server/app/", import.meta.url);
+  const files = await readdir(appDir, { recursive: true });
+  const candidates = [`${route}.html`, `${route}/index.html`, `${route}/page.html`];
+  const htmlPath = files.find((file) => candidates.includes(file));
+
+  assert.ok(htmlPath, `expected Next.js to emit a prerendered ${route} page`);
+  return readFile(new URL(`../.next/server/app/${htmlPath}`, import.meta.url), "utf8");
+}
+
 test("renders the supplied Bezdna reference design and content", async () => {
   const html = await readBuiltHomeHtml();
   assert.match(html, /БЕЗДНА — тапрум и кухня, Санкт-Петербург/);
   assert.match(html, /Комната с кранами/);
   assert.match(html, /Рижский проспект/);
   assert.match(html, /\+7 \(967\) 976-56-56/);
-  assert.match(html, /Свиные рёбра/);
+  assert.match(html, /Открыть полное меню/);
   assert.match(html, /src="\/logo\.svg"/);
   assert.match(html, /rel="noopener noreferrer"/);
+  assert.match(html, /href="tel:\+79679765656"/);
+  assert.match(html, /Telegram-сообщество/);
+  assert.doesNotMatch(html, /5\.0 ★ на Яндекс Картах|521 отзыв|Лучшее место 2026/);
+  assert.doesNotMatch(html, /href="https:\/\/t\.me\/abyss_calling"[^>]*btn-primary/);
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview|react-loading-skeleton/i);
+});
+
+test("renders a dedicated, indexable menu page", async () => {
+  const html = await readBuiltRouteHtml("menu");
+  assert.match(html, /Меню кухни — БЕЗДНА|Меню — БЕЗДНА/);
+  assert.match(html, /Свиные рёбра/);
+  assert.match(html, /Бургеры/);
+  assert.match(html, /href="tel:\+79679765656"/);
+  assert.match(html, /href="\/#contacts"/);
 });
 
 test("keeps content and brand assets easy to replace", async () => {
@@ -33,6 +56,16 @@ test("keeps content and brand assets easy to replace", async () => {
   await stat(new URL("../public/favicon.svg", import.meta.url));
   await stat(new URL("../public/og.png", import.meta.url));
   await stat(new URL("../reference/index-original.html", import.meta.url));
+  await stat(new URL("../app/robots.ts", import.meta.url));
+  await stat(new URL("../app/sitemap.ts", import.meta.url));
+});
+
+test("publishes one canonical domain in robots and sitemap", async () => {
+  const robotsSource = await readFile(new URL("../app/robots.ts", import.meta.url), "utf8");
+  const sitemapSource = await readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8");
+  assert.match(robotsSource, /https:\/\/bezdna-bar\.ru\/sitemap\.xml/);
+  assert.match(sitemapSource, /https:\/\/bezdna-bar\.ru/);
+  assert.match(sitemapSource, /\/menu/);
 });
 
 test("identifies the site owner and links to legal details", async () => {
