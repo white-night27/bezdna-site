@@ -197,6 +197,38 @@ export default function Home() {
               <a href="/menu" className="btn btn-primary" data-conversion="menu-full">Открыть полное меню</a>
               <a href={venue.phoneHref} className="btn btn-ghost" data-conversion="phone-menu-section">Уточнить наличие</a>
             </div>
+            <div className="food-gallery">
+              <figure className="food-card food-card-wide">
+                <Image
+                  src="/food/ribs.jpg"
+                  alt="Фирменные свиные рёбра Бездны с картофелем и салатом"
+                  width={5086}
+                  height={3814}
+                  sizes="(max-width: 900px) 100vw, 50vw"
+                />
+                <figcaption><strong>Фирменные рёбра</strong><span>550 г · соус на выбор</span></figcaption>
+              </figure>
+              <figure className="food-card">
+                <Image
+                  src="/food/burger-dvabro.jpg"
+                  alt="Бургер Двабро с говяжьей котлетой, беконом и картофелем"
+                  width={5256}
+                  height={3942}
+                  sizes="(max-width: 900px) 100vw, 25vw"
+                />
+                <figcaption><strong>Бургер «Двабро»</strong><span>Говядина · бекон · чеддер</span></figcaption>
+              </figure>
+              <figure className="food-card">
+                <Image
+                  src="/food/pizza-dyavolitsa.jpg"
+                  alt="Острая пицца Дьяволица с чоризо и халапеньо"
+                  width={4764}
+                  height={3573}
+                  sizes="(max-width: 900px) 100vw, 25vw"
+                />
+                <figcaption><strong>Пицца «Дьяволица»</strong><span>Чоризо · халапеньо · шрирача</span></figcaption>
+              </figure>
+            </div>
           </div>
         </section>
 
