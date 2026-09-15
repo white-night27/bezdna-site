@@ -5,12 +5,12 @@ export const venue = {
   "label": "Тапрум и кухня",
   "address": "Санкт-Петербург, Рижский пр., 12",
   "metro": "Балтийская",
-  "distance": "960 м пешком",
   "phone": "+7 (967) 976-56-56",
   "phoneHref": "tel:+79679765656",
   "hours": "16:00 — 03:00",
   "telegramUrl": "https://t.me/abyss_calling",
-  "mapUrl": "https://yandex.ru/maps/2/saint-petersburg/?ll=30.295161%2C59.914218&mode=poi&poi%5Bpoint%5D=30.294864%2C59.913779&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D35090945432&z=17.64"
+  "mapUrl": "https://yandex.ru/maps/2/saint-petersburg/?ll=30.295161%2C59.914218&mode=poi&poi%5Bpoint%5D=30.294864%2C59.913779&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D35090945432&z=17.64",
+  "twoGisUrl": "https://2gis.ru/spb/firm/70000001093771754"
 } as const;
 
 // Legal owner details. Keep these separate from the venue address above.

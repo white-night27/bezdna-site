@@ -2,6 +2,10 @@
 
 import { useEffect } from "react";
 
+type DataLayerWindow = Window & {
+  dataLayer?: Array<Record<string, string>>;
+};
+
 export default function SiteInteractions() {
   useEffect(() => {
     const header = document.getElementById("siteHeader");
@@ -10,8 +14,25 @@ export default function SiteInteractions() {
     const navDrawer = document.getElementById("navDrawer");
     const main = document.getElementById("main");
     const heroVisual = document.getElementById("heroVisual");
+    const conversionLinks = document.querySelectorAll<HTMLElement>("[data-conversion]");
 
-    if (!header || !navToggle || !navClose || !navDrawer || !main || !heroVisual) return;
+    const trackConversion = (event: Event) => {
+      const element = event.currentTarget as HTMLElement;
+      const conversion = element.dataset.conversion;
+      if (!conversion) return;
+
+      (window as DataLayerWindow).dataLayer?.push({
+        event: "bezdna_conversion",
+        conversion,
+      });
+      window.dispatchEvent(new CustomEvent("bezdna:conversion", { detail: { conversion } }));
+    };
+
+    conversionLinks.forEach((link) => link.addEventListener("click", trackConversion));
+
+    if (!header || !navToggle || !navClose || !navDrawer || !main || !heroVisual) {
+      return () => conversionLinks.forEach((link) => link.removeEventListener("click", trackConversion));
+    }
 
     const drawerLinks = navDrawer.querySelectorAll<HTMLAnchorElement>("a");
     const navLinks = document.querySelectorAll<HTMLAnchorElement>(".nav-links a");
@@ -89,6 +110,7 @@ export default function SiteInteractions() {
       navDrawer.removeEventListener("click", closeOnBackdrop);
       drawerLinks.forEach((link) => link.removeEventListener("click", closeDrawer));
       document.removeEventListener("keydown", closeOnEscape);
+      conversionLinks.forEach((link) => link.removeEventListener("click", trackConversion));
       navObserver.disconnect();
       menuObserver.disconnect();
     };
