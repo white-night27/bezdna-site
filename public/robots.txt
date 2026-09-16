@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://beznabar.ru/sitemap.xml
+Host: https://beznabar.ru
