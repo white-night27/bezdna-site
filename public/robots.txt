@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://beznabar.ru/sitemap.xml
-Host: https://beznabar.ru
+Sitemap: https://bezdna-bar.ru/sitemap.xml
+Host: https://bezdna-bar.ru
