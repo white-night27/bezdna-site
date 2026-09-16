@@ -43,7 +43,18 @@ test("renders a dedicated, indexable menu page", async () => {
   assert.match(html, /Свиные рёбра/);
   assert.match(html, /Бургеры/);
   assert.match(html, /href="tel:\+79679765656"/);
-  assert.match(html, /href="\/#contacts"/);
+  assert.match(html, /href="\/contacts"/);
+});
+
+test("renders a dedicated route and booking page", async () => {
+  const html = await readBuiltRouteHtml("contacts");
+  assert.match(html, /Как найти/);
+  assert.match(html, /Рижский пр/);
+  assert.match(html, /16:00/);
+  assert.match(html, /03:00/);
+  assert.match(html, /href="tel:\+79679765656"/);
+  assert.match(html, /Яндекс Карты/);
+  assert.match(html, /2ГИС/);
 });
 
 test("keeps content and brand assets easy to replace", async () => {
@@ -66,6 +77,7 @@ test("publishes one canonical domain in robots and sitemap", async () => {
   assert.match(robotsSource, /https:\/\/bezdna-bar\.ru\/sitemap\.xml/);
   assert.match(sitemapSource, /https:\/\/bezdna-bar\.ru/);
   assert.match(sitemapSource, /\/menu/);
+  assert.match(sitemapSource, /\/contacts/);
 });
 
 test("identifies the site owner and links to legal details", async () => {
