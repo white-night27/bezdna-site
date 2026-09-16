@@ -5,18 +5,13 @@ import { fileURLToPath } from "node:url";
 const projectRoot = dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
+  output: "export",
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
+  },
   turbopack: {
     root: projectRoot,
-  },
-  async redirects() {
-    return [
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "www.bezdna-bar.ru" }],
-        destination: "https://bezdna-bar.ru/:path*",
-        permanent: true,
-      },
-    ];
   },
 };
 
