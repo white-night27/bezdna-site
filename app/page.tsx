@@ -291,6 +291,7 @@ export default function Home() {
                 <address>{venue.address}<br />ближайшее метро — «{venue.metro}»</address>
                 <p className="contact-phone"><a href={venue.phoneHref}>{venue.phone}</a></p>
                 <p className="route-link"><a href={venue.mapUrl} target="_blank" rel="noopener noreferrer" data-conversion="route-yandex">Открыть на Яндекс Картах →</a></p>
+                <p className="route-link"><a href="/contacts" data-conversion="route-details">Подробный маршрут и ориентиры →</a></p>
               </div>
               <div className="contact-block">
                 <h3>Часы работы</h3>
