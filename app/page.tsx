@@ -205,6 +205,9 @@ export default function Home() {
                   width={5086}
                   height={3814}
                   sizes="(max-width: 900px) 100vw, 50vw"
+                  loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
                 />
                 <figcaption><strong>Фирменные рёбра</strong><span>550 г · соус на выбор</span></figcaption>
               </figure>
@@ -215,6 +218,9 @@ export default function Home() {
                   width={5256}
                   height={3942}
                   sizes="(max-width: 900px) 100vw, 25vw"
+                  loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
                 />
                 <figcaption><strong>Бургер «Двабро»</strong><span>Говядина · бекон · чеддер</span></figcaption>
               </figure>
@@ -225,6 +231,9 @@ export default function Home() {
                   width={4764}
                   height={3573}
                   sizes="(max-width: 900px) 100vw, 25vw"
+                  loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
                 />
                 <figcaption><strong>Пицца «Дьяволица»</strong><span>Чоризо · халапеньо · шрирача</span></figcaption>
               </figure>
