@@ -75,9 +75,9 @@ const structuredData = {
   sameAs: ["https://t.me/abyss_calling"],
   url: siteUrl,
   image: [
-    `${siteUrl}/food/ribs.jpg`,
-    `${siteUrl}/food/burger-dvabro.jpg`,
-    `${siteUrl}/food/pizza-dyavolitsa.jpg`,
+    `${siteUrl}/food/set.webp`,
+    `${siteUrl}/food/wings.webp`,
+    `${siteUrl}/food/onion-rings.webp`,
   ],
   hasMenu: `${siteUrl}/menu`,
 };
