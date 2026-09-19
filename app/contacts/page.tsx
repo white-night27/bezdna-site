@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { venue } from "../content";
-import SiteInteractions from "../site-interactions";
 
 export const metadata: Metadata = {
   title: "Как добраться и забронировать — БЕЗДНА",
@@ -89,7 +88,7 @@ export default function ContactsPage() {
       <aside className="mobile-cta" aria-label="Быстрое бронирование">
         <a href={venue.phoneHref} className="btn btn-primary" data-conversion="phone-contacts-mobile">Позвонить и забронировать</a>
       </aside>
-      <SiteInteractions />
+      <script src="/site.js" defer />
     </>
   );
 }

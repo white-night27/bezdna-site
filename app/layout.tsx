@@ -1,7 +1,29 @@
 import type { Metadata } from "next";
+import { Caveat, Manrope, Oswald } from "next/font/google";
 import "./globals.css";
 
 const siteUrl = "https://bezdna-bar.ru";
+
+const displayFont = Caveat({
+  subsets: ["latin", "cyrillic"],
+  weight: "400",
+  variable: "--f-display",
+  display: "swap",
+});
+
+const labelFont = Oswald({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500"],
+  variable: "--f-label",
+  display: "swap",
+});
+
+const bodyFont = Manrope({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "700"],
+  variable: "--f-body",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -53,9 +75,9 @@ const structuredData = {
   sameAs: ["https://t.me/abyss_calling"],
   url: siteUrl,
   image: [
-    `${siteUrl}/food/ribs.jpg`,
-    `${siteUrl}/food/burger-dvabro.jpg`,
-    `${siteUrl}/food/pizza-dyavolitsa.jpg`,
+    `${siteUrl}/food/pepperoni.webp`,
+    `${siteUrl}/food/strips.webp`,
+    `${siteUrl}/food/idaho.webp`,
   ],
   hasMenu: `${siteUrl}/menu`,
 };
@@ -65,12 +87,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="ru">
       <head>
         <meta name="theme-color" content="#0a0908" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Oswald:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </head>
-      <body>{children}</body>
+      <body className={`${displayFont.variable} ${labelFont.variable} ${bodyFont.variable}`}>{children}</body>
     </html>
   );
 }

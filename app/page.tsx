@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { features, legalDetails, menuCategories, navigation, venue } from "./content";
-import SiteInteractions from "./site-interactions";
 
 const atmosphere = [
   {
@@ -200,33 +199,42 @@ export default function Home() {
             <div className="food-gallery">
               <figure className="food-card food-card-wide">
                 <Image
-                  src="/food/ribs.jpg"
-                  alt="Фирменные свиные рёбра Бездны с картофелем и салатом"
-                  width={5086}
-                  height={3814}
+                  src="/food/pepperoni.webp"
+                  alt="Пицца Пепперони Бездны с чоризо и маслинами"
+                  width={320}
+                  height={240}
                   sizes="(max-width: 900px) 100vw, 50vw"
+                  loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
                 />
-                <figcaption><strong>Фирменные рёбра</strong><span>550 г · соус на выбор</span></figcaption>
+                <figcaption><strong>Пепперони</strong><span>570 г · чоризо · маслины</span></figcaption>
               </figure>
               <figure className="food-card">
                 <Image
-                  src="/food/burger-dvabro.jpg"
-                  alt="Бургер Двабро с говяжьей котлетой, беконом и картофелем"
-                  width={5256}
-                  height={3942}
+                  src="/food/strips.webp"
+                  alt="Куриные стрипсы Бездны"
+                  width={320}
+                  height={240}
                   sizes="(max-width: 900px) 100vw, 25vw"
+                  loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
                 />
-                <figcaption><strong>Бургер «Двабро»</strong><span>Говядина · бекон · чеддер</span></figcaption>
+                <figcaption><strong>Стрипсы</strong><span>150/40 г · классические или острые</span></figcaption>
               </figure>
               <figure className="food-card">
                 <Image
-                  src="/food/pizza-dyavolitsa.jpg"
-                  alt="Острая пицца Дьяволица с чоризо и халапеньо"
-                  width={4764}
-                  height={3573}
+                  src="/food/idaho.webp"
+                  alt="Картофель Айдахо Бездны"
+                  width={320}
+                  height={240}
                   sizes="(max-width: 900px) 100vw, 25vw"
+                  loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
                 />
-                <figcaption><strong>Пицца «Дьяволица»</strong><span>Чоризо · халапеньо · шрирача</span></figcaption>
+                <figcaption><strong>Картофель Фришка / Айдахо</strong><span>100 г · соус за отдельную плату</span></figcaption>
               </figure>
             </div>
           </div>
@@ -332,7 +340,7 @@ export default function Home() {
         <a href={venue.phoneHref} className="btn btn-primary" data-conversion="phone-mobile">Позвонить и забронировать</a>
       </aside>
 
-      <SiteInteractions />
+      <script src="/site.js" defer />
     </>
   );
 }
