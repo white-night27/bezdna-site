@@ -199,42 +199,42 @@ export default function Home() {
             <div className="food-gallery">
               <figure className="food-card food-card-wide">
                 <Image
-                  src="/food/set.webp"
-                  alt="Большой сет закусок Бездны с крыльями, картофелем, кольцами и соусами"
-                  width={720}
-                  height={540}
+                  src="/food/pepperoni.webp"
+                  alt="Пицца Пепперони Бездны с чоризо и маслинами"
+                  width={320}
+                  height={240}
                   sizes="(max-width: 900px) 100vw, 50vw"
                   loading="lazy"
                   decoding="async"
                   fetchPriority="low"
                 />
-                <figcaption><strong>Большой сет</strong><span>Крылья · картофель · закуски · соусы</span></figcaption>
+                <figcaption><strong>Пепперони</strong><span>570 г · чоризо · маслины</span></figcaption>
               </figure>
               <figure className="food-card">
                 <Image
-                  src="/food/wings.webp"
-                  alt="Куриные крылья Бездны в глазированном соусе"
-                  width={720}
-                  height={540}
+                  src="/food/strips.webp"
+                  alt="Куриные стрипсы Бездны"
+                  width={320}
+                  height={240}
                   sizes="(max-width: 900px) 100vw, 25vw"
                   loading="lazy"
                   decoding="async"
                   fetchPriority="low"
                 />
-                <figcaption><strong>Куриные крылья</strong><span>Глазированный соус · подача горячей</span></figcaption>
+                <figcaption><strong>Стрипсы</strong><span>150/40 г · классические или острые</span></figcaption>
               </figure>
               <figure className="food-card">
                 <Image
-                  src="/food/onion-rings.webp"
-                  alt="Хрустящие луковые кольца Бездны с соусом"
-                  width={720}
-                  height={540}
+                  src="/food/idaho.webp"
+                  alt="Картофель Айдахо Бездны"
+                  width={320}
+                  height={240}
                   sizes="(max-width: 900px) 100vw, 25vw"
                   loading="lazy"
                   decoding="async"
                   fetchPriority="low"
                 />
-                <figcaption><strong>Луковые кольца</strong><span>Хрустящая панировка · соус</span></figcaption>
+                <figcaption><strong>Картофель Фришка / Айдахо</strong><span>100 г · соус за отдельную плату</span></figcaption>
               </figure>
             </div>
           </div>
