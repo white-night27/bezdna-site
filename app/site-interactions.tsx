@@ -41,10 +41,22 @@ export default function SiteInteractions() {
     let lastFocused: HTMLElement | null = null;
     let hideDrawerTimer: ReturnType<typeof setTimeout> | undefined;
 
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let scrollFrame = 0;
+
     const setHeaderState = () => header.classList.toggle("scrolled", window.scrollY > 24);
     const setParallax = () => {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      if (reduceMotion || window.scrollY > window.innerHeight * 1.25) return;
       heroVisual.style.transform = `translate3d(0, ${window.scrollY * 0.08}px, 0)`;
+    };
+    const updateScrollEffects = () => {
+      scrollFrame = 0;
+      setHeaderState();
+      setParallax();
+    };
+    const onScroll = () => {
+      if (scrollFrame) return;
+      scrollFrame = window.requestAnimationFrame(updateScrollEffects);
     };
     const closeDrawer = () => {
       navDrawer.classList.remove("open");
@@ -76,9 +88,8 @@ export default function SiteInteractions() {
       if (event.key === "Escape" && navDrawer.classList.contains("open")) closeDrawer();
     };
 
-    setHeaderState();
-    window.addEventListener("scroll", setHeaderState, { passive: true });
-    window.addEventListener("scroll", setParallax, { passive: true });
+    updateScrollEffects();
+    window.addEventListener("scroll", onScroll, { passive: true });
     navToggle.addEventListener("click", toggleDrawer);
     navClose.addEventListener("click", closeDrawer);
     navDrawer.addEventListener("click", closeOnBackdrop);
@@ -103,8 +114,8 @@ export default function SiteInteractions() {
 
     return () => {
       if (hideDrawerTimer) clearTimeout(hideDrawerTimer);
-      window.removeEventListener("scroll", setHeaderState);
-      window.removeEventListener("scroll", setParallax);
+      window.removeEventListener("scroll", onScroll);
+      if (scrollFrame) window.cancelAnimationFrame(scrollFrame);
       navToggle.removeEventListener("click", toggleDrawer);
       navClose.removeEventListener("click", closeDrawer);
       navDrawer.removeEventListener("click", closeOnBackdrop);
