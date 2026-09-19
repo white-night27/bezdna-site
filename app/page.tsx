@@ -198,43 +198,49 @@ export default function Home() {
             </div>
             <div className="food-gallery">
               <figure className="food-card food-card-wide">
-                <Image
-                  src="/food/pepperoni.webp"
-                  alt="Пицца Пепперони Бездны с чоризо и маслинами"
-                  width={320}
-                  height={240}
-                  sizes="(max-width: 900px) 100vw, 50vw"
-                  loading="lazy"
-                  decoding="async"
-                  fetchPriority="low"
-                />
-                <figcaption><strong>Пепперони</strong><span>570 г · чоризо · маслины</span></figcaption>
+                <picture>
+                  <source srcSet="/food/ribs-hq.avif" type="image/avif" />
+                  <source srcSet="/food/ribs-hq.webp" type="image/webp" />
+                  <img
+                    src="/food/ribs-hq.webp"
+                    alt="Фирменные свиные рёбра Бездны с картофелем и салатом"
+                    width="1600"
+                    height="1200"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+                <figcaption><strong>Свиные рёбра</strong><span>550/70 г · соус на выбор</span></figcaption>
               </figure>
               <figure className="food-card">
-                <Image
-                  src="/food/strips.webp"
-                  alt="Куриные стрипсы Бездны"
-                  width={320}
-                  height={240}
-                  sizes="(max-width: 900px) 100vw, 25vw"
-                  loading="lazy"
-                  decoding="async"
-                  fetchPriority="low"
-                />
-                <figcaption><strong>Стрипсы</strong><span>150/40 г · классические или острые</span></figcaption>
+                <picture>
+                  <source srcSet="/food/burger-dvabro-hq.avif" type="image/avif" />
+                  <source srcSet="/food/burger-dvabro-hq.webp" type="image/webp" />
+                  <img
+                    src="/food/burger-dvabro-hq.webp"
+                    alt="Бургер Двабро с говяжьей котлетой, беконом и сыром чеддер"
+                    width="1600"
+                    height="1200"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+                <figcaption><strong>Бургер «Двабро»</strong><span>Говядина · бекон · чеддер</span></figcaption>
               </figure>
               <figure className="food-card">
-                <Image
-                  src="/food/idaho.webp"
-                  alt="Картофель Айдахо Бездны"
-                  width={320}
-                  height={240}
-                  sizes="(max-width: 900px) 100vw, 25vw"
-                  loading="lazy"
-                  decoding="async"
-                  fetchPriority="low"
-                />
-                <figcaption><strong>Картофель Фришка / Айдахо</strong><span>100 г · соус за отдельную плату</span></figcaption>
+                <picture>
+                  <source srcSet="/food/pizza-dyavolitsa-hq.avif" type="image/avif" />
+                  <source srcSet="/food/pizza-dyavolitsa-hq.webp" type="image/webp" />
+                  <img
+                    src="/food/pizza-dyavolitsa-hq.webp"
+                    alt="Острая пицца Дьяволица с чоризо и халапеньо"
+                    width="1600"
+                    height="1200"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+                <figcaption><strong>Пицца «Дьяволица»</strong><span>Чоризо · халапеньо · шрирача</span></figcaption>
               </figure>
             </div>
           </div>
