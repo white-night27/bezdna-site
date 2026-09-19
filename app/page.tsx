@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { features, legalDetails, menuCategories, navigation, venue } from "./content";
-import SiteInteractions from "./site-interactions";
 
 const atmosphere = [
   {
@@ -341,7 +340,7 @@ export default function Home() {
         <a href={venue.phoneHref} className="btn btn-primary" data-conversion="phone-mobile">Позвонить и забронировать</a>
       </aside>
 
-      <SiteInteractions />
+      <script src="/site.js" defer />
     </>
   );
 }
