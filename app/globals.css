@@ -491,7 +491,13 @@
     background:var(--panel);
     border:1px solid var(--line);
   }
+  .food-card picture{
+    position:absolute;
+    inset:0;
+    display:block;
+  }
   .food-card img{
+    display:block;
     width:100%;
     height:100%;
     object-fit:cover;
