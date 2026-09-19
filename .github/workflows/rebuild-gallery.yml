@@ -81,4 +81,5 @@ jobs:
           git add public/food/*-hq.webp public/food/*-hq.avif
           git diff --cached --quiet && exit 0
           git commit -m "Generate high-quality optimized gallery photos [skip ci]"
-          git push
+          git pull --rebase origin fix/image-quality
+          git push origin HEAD:fix/image-quality
