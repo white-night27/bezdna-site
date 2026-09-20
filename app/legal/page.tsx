@@ -19,7 +19,7 @@ export default function LegalPage() {
           <a href="/" className="legal-logo" aria-label="БЕЗДНА — вернуться на главную">
             <img src="/logo.svg" alt="БЕЗДНА" width="995" height="826" decoding="async" />
           </a>
-          <Link href="/" className="legal-back-link">Вернуться на сайт</a>
+          <a href="/" className="legal-back-link">Вернуться на сайт</a>
         </div>
       </header>
 
@@ -58,7 +58,7 @@ export default function LegalPage() {
             </div>
           </dl>
 
-          <Link href="/" className="legal-return">← На главную</a>
+          <a href="/" className="legal-return">← На главную</a>
         </section>
       </main>
     </>
