@@ -197,35 +197,27 @@ export default function Home() {
               <a href={venue.phoneHref} className="btn btn-ghost" data-conversion="phone-menu-section">Уточнить наличие</a>
             </div>
             <div className="food-gallery">
-              <figure className="food-card food-card-wide">
-                <picture>
-                  <source srcSet="/food/ribs-hq.avif" type="image/avif" />
-                  <source srcSet="/food/ribs-hq.webp" type="image/webp" />
-                  <img
-                    src="/food/ribs-hq.webp"
-                    alt="Фирменные свиные рёбра Бездны с картофелем и салатом"
-                    width="1600"
-                    height="1200"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </picture>
-                <figcaption><strong>Свиные рёбра</strong><span>550/70 г · соус на выбор</span></figcaption>
+              <figure className="food-card food-card-wide food-card-cutout">
+                <img
+                  src="/food/burger-krutoyar.webp"
+                  alt="Бургер «Крутояр» с говяжьей котлетой, беконом, чеддером и картофелем"
+                  width="1100"
+                  height="778"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption><strong>Бургер «Крутояр»</strong><span>говядина · бекон · чеддер · хашбраун</span></figcaption>
               </figure>
-              <figure className="food-card">
-                <picture>
-                  <source srcSet="/food/burger-dvabro-hq.avif" type="image/avif" />
-                  <source srcSet="/food/burger-dvabro-hq.webp" type="image/webp" />
-                  <img
-                    src="/food/burger-dvabro-hq.webp"
-                    alt="Бургер Двабро с говяжьей котлетой, беконом и сыром чеддер"
-                    width="1600"
-                    height="1200"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </picture>
-                <figcaption><strong>Бургер «Двабро»</strong><span>Говядина · бекон · чеддер</span></figcaption>
+              <figure className="food-card food-card-cutout">
+                <img
+                  src="/food/ribs-krutoyar.webp"
+                  alt="Свиные рёбра «Крутояр» с мочёными огурчиками и салатом коул слоу"
+                  width="1000"
+                  height="1000"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption><strong>Рёбра «Крутояр»</strong><span>мочёные огурчики · коул слоу</span></figcaption>
               </figure>
               <figure className="food-card">
                 <picture>
