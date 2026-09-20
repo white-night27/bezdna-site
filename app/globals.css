@@ -312,12 +312,6 @@
     padding-block:clamp(5rem, 12vh, 9rem);
     border-top:1px solid var(--line);
   }
-  @supports (content-visibility:auto){
-    main > section:not(.hero){
-      content-visibility:auto;
-      contain-intrinsic-size:auto 850px;
-    }
-  }
   .section-head{
     display:flex; flex-direction:column; gap:1rem;
     margin-bottom:clamp(2.5rem, 6vh, 4.5rem);
@@ -1594,5 +1588,23 @@ section:not(.hero)::before{
     object-fit:contain;
     object-position:center 20%;
     padding:0.5rem 0.5rem 6.6rem;
+  }
+}
+
+/* Mobile gallery must collapse after the refresh overrides. */
+@media (max-width:900px){
+  .food-gallery{
+    grid-template-columns:1fr 1fr;
+  }
+  .food-card-wide{
+    grid-column:1 / -1;
+  }
+}
+@media (max-width:560px){
+  .food-gallery{
+    grid-template-columns:1fr;
+  }
+  .food-card-wide{
+    grid-column:auto;
   }
 }
