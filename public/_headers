@@ -1,3 +1,6 @@
+/*
+  Alt-Svc: clear
+
 
 # Never let browsers pin an old exported HTML shell after a deploy.
 /
