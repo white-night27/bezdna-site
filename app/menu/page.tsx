@@ -24,7 +24,7 @@ export default function MenuPage() {
           <a href="/" className="legal-logo" aria-label="БЕЗДНА — на главную">
             <img src="/logo.svg" alt="БЕЗДНА" width="995" height="826" decoding="async" />
           </a>
-          <Link href="/contacts" className="legal-back-link">Контакты и бронь</a>
+          <a href="/contacts" className="legal-back-link">Контакты и бронь</a>
         </div>
       </header>
 
@@ -66,7 +66,7 @@ export default function MenuPage() {
 
           <div className="menu-page-footer">
             <p>Выбор напитков и заказ — на баре.</p>
-            <Link href="/contacts" className="btn btn-ghost">Как добраться</a>
+            <a href="/contacts" className="btn btn-ghost">Как добраться</a>
           </div>
         </section>
       </main>
