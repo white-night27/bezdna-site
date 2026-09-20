@@ -235,7 +235,7 @@
     width:min(1400px, 200vw);
     height:auto;
   }
-  .hero-rings{ transform-origin:center; animation:rotate-slow 90s linear infinite; }
+  .hero-rings{ transform-origin:center; }
   @keyframes rotate-slow{ to{ transform:rotate(360deg); } }
 
   .hero-content{
@@ -302,7 +302,7 @@
     content:'';
     width:1px; height:26px;
     background:linear-gradient(var(--blood-glow), transparent);
-    animation:scroll-pulse 2.4s ease-in-out infinite;
+    animation:none;
   }
   @keyframes scroll-pulse{ 0%,100%{ opacity:0.3; } 50%{ opacity:1; } }
 
@@ -1191,9 +1191,7 @@ body{
 .hero-visual svg{
   opacity:0.8;
 }
-.hero-rings{
-  animation-duration:140s;
-}
+.hero-rings{ animation:none; }
 .hero-content .container{
   gap:1.45rem;
 }
