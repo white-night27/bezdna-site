@@ -1,0 +1,51 @@
+name: Network path diagnostics
+
+on:
+  push:
+    branches:
+      - diag/network-pc
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install DNS tools
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq dnsutils
+      - name: DNS resolution
+        run: |
+          set -x
+          dig +short bezdna-bar.ru A
+          dig +short bezdna-bar.ru AAAA
+          dig +short www.bezdna-bar.ru A
+          dig +short www.bezdna-bar.ru AAAA
+          dig @1.1.1.1 +short bezdna-bar.ru A
+          dig @1.1.1.1 +short bezdna-bar.ru AAAA
+          dig @8.8.8.8 +short bezdna-bar.ru A
+          dig @8.8.8.8 +short bezdna-bar.ru AAAA
+          dig +short CNAME bezdna-bar.ru
+          dig +short CNAME www.bezdna-bar.ru
+      - name: HTTP IPv4 and IPv6
+        run: |
+          set -x
+          curl -4 -I --max-time 15 https://bezdna-bar.ru/
+          curl -4 -I --max-time 15 https://www.bezdna-bar.ru/
+          curl -4 -I --max-time 15 https://bezdna-site1.pages.dev/
+          curl -6 -I --max-time 15 https://bezdna-bar.ru/ || true
+          curl -6 -I --max-time 15 https://www.bezdna-bar.ru/ || true
+          curl -6 -I --max-time 15 https://bezdna-site1.pages.dev/ || true
+      - name: Timings
+        run: |
+          for u in https://bezdna-bar.ru/ https://www.bezdna-bar.ru/ https://bezdna-site1.pages.dev/; do
+            echo "=== $u IPv4 ==="
+            curl -4 -sS -o /dev/null --max-time 20 -w 'code=%{http_code} dns=%{time_namelookup} connect=%{time_connect} tls=%{time_appconnect} ttfb=%{time_starttransfer} total=%{time_total}\n' "$u"
+            echo "=== $u IPv6 ==="
+            curl -6 -sS -o /dev/null --max-time 20 -w 'code=%{http_code} dns=%{time_namelookup} connect=%{time_connect} tls=%{time_appconnect} ttfb=%{time_starttransfer} total=%{time_total}\n' "$u" || true
+          done
+      - name: TLS certificate
+        run: |
+          echo | openssl s_client -connect bezdna-bar.ru:443 -servername bezdna-bar.ru 2>/dev/null | openssl x509 -noout -subject -issuer -dates -ext subjectAltName
