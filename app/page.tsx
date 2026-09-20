@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element, @next/next/no-html-link-for-pages */
 import { features, legalDetails, menuCategories, navigation, venue } from "./content";
 
 const atmosphere = [
