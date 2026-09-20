@@ -1574,3 +1574,25 @@ section:not(.hero)::before{
     min-height:0;
   }
 }
+
+
+/* Mobile-safe composition for the Krutoyar ribs cutout. */
+.food-card > img{
+  position:absolute;
+  inset:0;
+}
+.food-card-ribs > img{
+  object-fit:contain;
+  object-position:center 28%;
+  padding:0.8rem 0.8rem 5.4rem;
+}
+@media (max-width:560px){
+  .food-card-ribs{
+    min-height:26rem;
+  }
+  .food-card-ribs > img{
+    object-fit:contain;
+    object-position:center 20%;
+    padding:0.5rem 0.5rem 6.6rem;
+  }
+}
