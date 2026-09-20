@@ -52,6 +52,10 @@ const devices = [
       const title = await page.title();
       if (!title.includes("БЕЗДНА")) issues.push(`unexpected title: ${title}`);
 
+      const food = page.locator("#menu");
+      await food.scrollIntoViewIfNeeded();
+      await page.waitForTimeout(1200);
+
       const imageInfo = await page.evaluate(() => {
         const imgs = [...document.querySelectorAll(".food-gallery img")];
         return imgs.map(img => {
@@ -82,10 +86,6 @@ const devices = [
 
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       if (overflow > 4) issues.push(`horizontal overflow ${overflow}px`);
-
-      const food = page.locator("#menu");
-      await food.scrollIntoViewIfNeeded();
-      await page.waitForTimeout(300);
 
       await page.screenshot({ path:path.join(out,`${device.name}-home.png`), fullPage:true });
       await food.screenshot({ path:path.join(out,`${device.name}-food.png`) });
