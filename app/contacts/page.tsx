@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import { venue } from "../content";
 
 export const metadata: Metadata = {
@@ -24,10 +22,10 @@ export default function ContactsPage() {
 
       <header className="legal-header">
         <div className="container legal-header-inner">
-          <Link href="/" className="legal-logo" aria-label="БЕЗДНА — на главную">
-            <Image src="/logo.svg" alt="БЕЗДНА" width={995} height={826} priority />
-          </Link>
-          <Link href="/menu" className="legal-back-link">Посмотреть меню</Link>
+          <a href="/" className="legal-logo" aria-label="БЕЗДНА — на главную">
+            <img src="/logo.svg" alt="БЕЗДНА" width="995" height="826" decoding="async" />
+          </a>
+          <Link href="/menu" className="legal-back-link">Посмотреть меню</a>
         </div>
       </header>
 
@@ -80,7 +78,7 @@ export default function ContactsPage() {
 
           <div className="contacts-page-footer">
             <p>Рижский пр., 12 · ежедневно {venue.hours}</p>
-            <Link href="/menu" className="btn btn-ghost">Открыть меню</Link>
+            <Link href="/menu" className="btn btn-ghost">Открыть меню</a>
           </div>
         </section>
       </main>
