@@ -56,6 +56,39 @@ const devices = [
       await food.scrollIntoViewIfNeeded();
       await page.waitForTimeout(1200);
 
+      const resourceSummary = await page.evaluate(() => {
+        const nav = performance.getEntriesByType("navigation")[0];
+        const resources = performance.getEntriesByType("resource").map((entry) => ({
+          name: entry.name,
+          initiatorType: entry.initiatorType,
+          duration: Math.round(entry.duration),
+          transferSize: entry.transferSize || 0,
+          encodedBodySize: entry.encodedBodySize || 0,
+          nextHopProtocol: entry.nextHopProtocol || "",
+        }));
+        const totalTransfer = resources.reduce((sum, item) => sum + item.transferSize, 0);
+        const largest = [...resources]
+          .sort((a,b) => b.transferSize - a.transferSize)
+          .slice(0, 12);
+        const slowest = [...resources]
+          .sort((a,b) => b.duration - a.duration)
+          .slice(0, 12);
+        return {
+          navigation: nav ? {
+            duration: Math.round(nav.duration),
+            domContentLoaded: Math.round(nav.domContentLoadedEventEnd),
+            loadEventEnd: Math.round(nav.loadEventEnd),
+            transferSize: nav.transferSize || 0,
+            encodedBodySize: nav.encodedBodySize || 0,
+            nextHopProtocol: nav.nextHopProtocol || "",
+          } : null,
+          requestCount: resources.length,
+          totalTransfer,
+          largest,
+          slowest,
+        };
+      });
+
       const imageInfo = await page.evaluate(() => {
         const imgs = [...document.querySelectorAll(".food-gallery img")];
         return imgs.map(img => {
@@ -90,7 +123,7 @@ const devices = [
       await page.screenshot({ path:path.join(out,`${device.name}-home.png`), fullPage:true });
       await food.screenshot({ path:path.join(out,`${device.name}-food.png`) });
 
-      report.push({ device:device.name, domMs, title, imageInfo, failedRequests, issues });
+      report.push({ device:device.name, domMs, title, resourceSummary, imageInfo, failedRequests, issues });
     } catch (e) {
       issues.push(`exception: ${e.stack || e.message}`);
       report.push({ device:device.name, failedRequests, issues });
