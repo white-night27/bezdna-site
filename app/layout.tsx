@@ -86,7 +86,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="ru">
       <head>
-        <meta name="theme-color" content="#0a0908" />
+        <meta name="theme-color" content="#070606" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </head>
       <body className={`${displayFont.variable} ${labelFont.variable} ${bodyFont.variable}`}>{children}</body>
