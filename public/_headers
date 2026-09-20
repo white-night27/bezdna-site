@@ -1,24 +1,5 @@
 /*
-  Alt-Svc: clear
-
-
-# Never let browsers pin an old exported HTML shell after a deploy.
-/
-  Cache-Control: no-store, max-age=0, must-revalidate
-/index.html
-  Cache-Control: no-store, max-age=0, must-revalidate
-/menu/
-  Cache-Control: no-store, max-age=0, must-revalidate
-/menu/index.html
-  Cache-Control: no-store, max-age=0, must-revalidate
-/contacts/
-  Cache-Control: no-store, max-age=0, must-revalidate
-/contacts/index.html
-  Cache-Control: no-store, max-age=0, must-revalidate
-/legal/
-  Cache-Control: no-store, max-age=0, must-revalidate
-/legal/index.html
-  Cache-Control: no-store, max-age=0, must-revalidate
+  ! Alt-Svc
 
 /_next/static/*
   Cache-Control: public, max-age=31536000, immutable
