@@ -75,9 +75,9 @@ const structuredData = {
   sameAs: ["https://t.me/abyss_calling"],
   url: siteUrl,
   image: [
-    `${siteUrl}/food/burger-krutoyar.webp`,
-    `${siteUrl}/food/ribs-krutoyar.webp`,
-    `${siteUrl}/food/pizza-dyavolitsa-hq.webp`,
+    `${siteUrl}/food/burger-krutoyar-v2.webp`,
+    `${siteUrl}/food/ribs-krutoyar-v2.webp`,
+    `${siteUrl}/food/pizza-dyavolitsa-v2.webp`,
   ],
   hasMenu: `${siteUrl}/menu`,
 };
@@ -86,7 +86,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="ru">
       <head>
-        <meta name="theme-color" content="#0a0908" />
+        <meta name="theme-color" content="#070606" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </head>
       <body className={`${displayFont.variable} ${labelFont.variable} ${bodyFont.variable}`}>{children}</body>
