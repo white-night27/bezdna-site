@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Caveat, Manrope, Oswald } from "next/font/google";
+import { Caveat, Oswald } from "next/font/google";
 import "./globals.css";
 
 const siteUrl = "https://bezdna-bar.ru";
@@ -19,13 +19,6 @@ const labelFont = Oswald({
   preload: false,
 });
 
-const bodyFont = Manrope({
-  subsets: ["latin", "cyrillic"],
-  weight: ["400", "700"],
-  variable: "--f-body",
-  display: "swap",
-  preload: false,
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -91,7 +84,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <meta name="theme-color" content="#070606" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </head>
-      <body className={`${displayFont.variable} ${labelFont.variable} ${bodyFont.variable}`}>{children}</body>
+      <body className={`${displayFont.variable} ${labelFont.variable}`}>{children}</body>
     </html>
   );
 }
