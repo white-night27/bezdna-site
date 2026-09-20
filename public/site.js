@@ -5,7 +5,6 @@
     const navClose = document.getElementById("navClose");
     const navDrawer = document.getElementById("navDrawer");
     const main = document.getElementById("main");
-    const heroVisual = document.getElementById("heroVisual");
 
     document.addEventListener("click", (event) => {
       const element = event.target instanceof Element ? event.target.closest("[data-conversion]") : null;
@@ -16,13 +15,12 @@
       window.dispatchEvent(new CustomEvent("bezdna:conversion", { detail: { conversion } }));
     }, { passive: true });
 
-    if (!header || !navToggle || !navClose || !navDrawer || !main || !heroVisual) return;
+    if (!header || !navToggle || !navClose || !navDrawer || !main) return;
 
     const drawerLinks = navDrawer.querySelectorAll("a");
     const navLinks = document.querySelectorAll(".nav-links a");
     const menuLinks = document.querySelectorAll(".menu-nav a");
     const sections = document.querySelectorAll("main section[id]");
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let lastFocused = null;
     let hideDrawerTimer;
     let scrollFrame = 0;
@@ -30,9 +28,6 @@
     const updateScrollEffects = () => {
       scrollFrame = 0;
       header.classList.toggle("scrolled", window.scrollY > 24);
-      if (!reduceMotion && window.scrollY <= window.innerHeight * 1.25) {
-        heroVisual.style.transform = `translate3d(0, ${window.scrollY * 0.08}px, 0)`;
-      }
     };
 
     const onScroll = () => {
