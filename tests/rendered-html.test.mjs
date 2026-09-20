@@ -43,7 +43,7 @@ test("renders a dedicated, indexable menu page", async () => {
   assert.match(html, /Свиные рёбра/);
   assert.match(html, /Бургеры/);
   assert.match(html, /href="tel:\+79679765656"/);
-  assert.match(html, /href="\\/contacts\\/?"/);
+  assert.match(html, /href="\/contacts\/?"/);
 });
 
 test("renders a dedicated route and booking page", async () => {
