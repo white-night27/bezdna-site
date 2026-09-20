@@ -13,16 +13,18 @@ const displayFont = Caveat({
 
 const labelFont = Oswald({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500"],
+  weight: "500",
   variable: "--f-label",
   display: "swap",
+  preload: false,
 });
 
 const bodyFont = Manrope({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "700"],
   variable: "--f-body",
   display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
