@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import { legalDetails, venue } from "../content";
 
 export const metadata: Metadata = {
@@ -18,10 +16,10 @@ export default function LegalPage() {
 
       <header className="legal-header">
         <div className="container legal-header-inner">
-          <Link href="/" className="legal-logo" aria-label="БЕЗДНА — вернуться на главную">
-            <Image src="/logo.svg" alt="БЕЗДНА" width={995} height={826} priority />
-          </Link>
-          <Link href="/" className="legal-back-link">Вернуться на сайт</Link>
+          <a href="/" className="legal-logo" aria-label="БЕЗДНА — вернуться на главную">
+            <img src="/logo.svg" alt="БЕЗДНА" width="995" height="826" decoding="async" />
+          </a>
+          <Link href="/" className="legal-back-link">Вернуться на сайт</a>
         </div>
       </header>
 
@@ -60,7 +58,7 @@ export default function LegalPage() {
             </div>
           </dl>
 
-          <Link href="/" className="legal-return">← На главную</Link>
+          <Link href="/" className="legal-return">← На главную</a>
         </section>
       </main>
     </>
