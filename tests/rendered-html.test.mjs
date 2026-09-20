@@ -43,7 +43,7 @@ test("renders a dedicated, indexable menu page", async () => {
   assert.match(html, /Свиные рёбра/);
   assert.match(html, /Бургеры/);
   assert.match(html, /href="tel:\+79679765656"/);
-  assert.match(html, /href="\/contacts"/);
+  assert.match(html, /href="\/contacts\/?"/);
 });
 
 test("renders a dedicated route and booking page", async () => {
@@ -65,15 +65,15 @@ test("keeps content and brand assets easy to replace", async () => {
   assert.match(content, /export const features =/);
   await stat(new URL("../public/logo.svg", import.meta.url));
   await stat(new URL("../public/favicon.svg", import.meta.url));
-  await stat(new URL("../public/og.png", import.meta.url));
+  await stat(new URL("../public/og-preview-1200x630-v5.jpg", import.meta.url));
   await stat(new URL("../reference/index-original.html", import.meta.url));
-  await stat(new URL("../app/robots.ts", import.meta.url));
-  await stat(new URL("../app/sitemap.ts", import.meta.url));
+  await stat(new URL("../public/robots.txt", import.meta.url));
+  await stat(new URL("../public/sitemap.xml", import.meta.url));
 });
 
 test("publishes one canonical domain in robots and sitemap", async () => {
-  const robotsSource = await readFile(new URL("../app/robots.ts", import.meta.url), "utf8");
-  const sitemapSource = await readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8");
+  const robotsSource = await readFile(new URL("../public/robots.txt", import.meta.url), "utf8");
+  const sitemapSource = await readFile(new URL("../public/sitemap.xml", import.meta.url), "utf8");
   assert.match(robotsSource, /https:\/\/bezdna-bar\.ru\/sitemap\.xml/);
   assert.match(sitemapSource, /https:\/\/bezdna-bar\.ru/);
   assert.match(sitemapSource, /\/menu/);
