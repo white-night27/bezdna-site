@@ -208,7 +208,7 @@ export default function Home() {
                 />
                 <figcaption><strong>Бургер «Крутояр»</strong><span>говядина · бекон · чеддер · хашбраун</span></figcaption>
               </figure>
-              <figure className="food-card food-card-cutout">
+              <figure className="food-card food-card-cutout food-card-ribs">
                 <img
                   src="/food/ribs-krutoyar-v2.webp"
                   alt="Свиные рёбра «Крутояр» с мочёными огурчиками и салатом коул слоу"

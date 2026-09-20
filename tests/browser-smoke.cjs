@@ -72,6 +72,33 @@ const devices = [
         if (overflow > 4) issues.push(`horizontal overflow: ${overflow}px`);
 
         if (route.path === "/") {
+          const food = page.locator("#menu");
+          await food.scrollIntoViewIfNeeded();
+          await page.waitForTimeout(700);
+
+          const galleryMetrics = await page.evaluate(() => {
+            const gallery = document.querySelector(".food-gallery");
+            const cards = [...document.querySelectorAll(".food-gallery .food-card")];
+            const ribs = document.querySelector(".food-card-ribs img");
+            if (!gallery) return null;
+            const gr = gallery.getBoundingClientRect();
+            return {
+              galleryWidth: gr.width,
+              cardWidths: cards.map(card => card.getBoundingClientRect().width),
+              ribsFit: ribs ? getComputedStyle(ribs).objectFit : null,
+              ribsLoaded: ribs ? ribs.complete && ribs.naturalWidth > 0 : false,
+            };
+          });
+          if (!galleryMetrics) {
+            issues.push("food gallery not found");
+          } else {
+            if (!galleryMetrics.ribsLoaded) issues.push("ribs image did not load");
+            if (galleryMetrics.ribsFit !== "contain") issues.push(`ribs object-fit is ${galleryMetrics.ribsFit}`);
+            if (device.isMobile && galleryMetrics.cardWidths.some(width => width < galleryMetrics.galleryWidth * 0.9)) {
+              issues.push(`mobile food cards are still multi-column: ${galleryMetrics.cardWidths.join(",")} / ${galleryMetrics.galleryWidth}`);
+            }
+          }
+
           if (device.isMobile) {
             const toggle = page.locator("#navToggle");
             if (!(await toggle.isVisible())) {
