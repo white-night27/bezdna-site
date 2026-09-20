@@ -65,7 +65,7 @@ test("keeps content and brand assets easy to replace", async () => {
   assert.match(content, /export const features =/);
   await stat(new URL("../public/logo.svg", import.meta.url));
   await stat(new URL("../public/favicon.svg", import.meta.url));
-  await stat(new URL("../public/og.png", import.meta.url));
+  await stat(new URL("../public/og-preview-1200x630-v5.jpg", import.meta.url));
   await stat(new URL("../reference/index-original.html", import.meta.url));
   await stat(new URL("../public/robots.txt", import.meta.url));
   await stat(new URL("../public/sitemap.xml", import.meta.url));
