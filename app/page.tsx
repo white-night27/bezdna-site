@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { features, legalDetails, menuCategories, navigation, venue } from "./content";
 
 const atmosphere = [
@@ -34,7 +33,7 @@ export default function Home() {
       <header className="site-header" id="siteHeader">
         <div className="container nav-inner">
           <a href="#hero" className="logo" aria-label="БЕЗДНА — на главную">
-            <Image src="/logo.svg" alt="БЕЗДНА" width={995} height={826} priority />
+            <img src="/logo.svg" alt="БЕЗДНА" width="995" height="826" decoding="async" />
           </a>
           <nav aria-label="Основная навигация">
             <ul className="nav-links">
