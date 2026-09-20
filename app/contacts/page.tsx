@@ -25,7 +25,7 @@ export default function ContactsPage() {
           <a href="/" className="legal-logo" aria-label="БЕЗДНА — на главную">
             <img src="/logo.svg" alt="БЕЗДНА" width="995" height="826" decoding="async" />
           </a>
-          <Link href="/menu" className="legal-back-link">Посмотреть меню</a>
+          <a href="/menu" className="legal-back-link">Посмотреть меню</a>
         </div>
       </header>
 
@@ -78,7 +78,7 @@ export default function ContactsPage() {
 
           <div className="contacts-page-footer">
             <p>Рижский пр., 12 · ежедневно {venue.hours}</p>
-            <Link href="/menu" className="btn btn-ghost">Открыть меню</a>
+            <a href="/menu" className="btn btn-ghost">Открыть меню</a>
           </div>
         </section>
       </main>
