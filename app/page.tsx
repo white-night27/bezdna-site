@@ -199,7 +199,7 @@ export default function Home() {
             <div className="food-gallery">
               <figure className="food-card food-card-wide food-card-cutout">
                 <img
-                  src="/food/burger-krutoyar.webp"
+                  src="/food/burger-krutoyar-v2.webp"
                   alt="Бургер «Крутояр» с говяжьей котлетой, беконом, чеддером и картофелем"
                   width="1100"
                   height="778"
@@ -210,7 +210,7 @@ export default function Home() {
               </figure>
               <figure className="food-card food-card-cutout">
                 <img
-                  src="/food/ribs-krutoyar.webp"
+                  src="/food/ribs-krutoyar-v2.webp"
                   alt="Свиные рёбра «Крутояр» с мочёными огурчиками и салатом коул слоу"
                   width="1000"
                   height="1000"
@@ -221,10 +221,10 @@ export default function Home() {
               </figure>
               <figure className="food-card">
                 <picture>
-                  <source srcSet="/food/pizza-dyavolitsa-hq.avif" type="image/avif" />
-                  <source srcSet="/food/pizza-dyavolitsa-hq.webp" type="image/webp" />
+                  <source srcSet="/food/pizza-dyavolitsa-v2.avif" type="image/avif" />
+                  <source srcSet="/food/pizza-dyavolitsa-v2.webp" type="image/webp" />
                   <img
-                    src="/food/pizza-dyavolitsa-hq.webp"
+                    src="/food/pizza-dyavolitsa-v2.webp"
                     alt="Острая пицца Дьяволица с чоризо и халапеньо"
                     width="1600"
                     height="1200"
