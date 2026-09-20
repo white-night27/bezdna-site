@@ -77,7 +77,7 @@ const structuredData = {
   image: [
     `${siteUrl}/food/burger-krutoyar-v2.webp`,
     `${siteUrl}/food/ribs-krutoyar-v2.webp`,
-    `${siteUrl}/food/pizza-dyavolitsa-v2.webp`,
+    `${siteUrl}/food/pizza-dyavolitsa-960.webp`,
   ],
   hasMenu: `${siteUrl}/menu`,
 };

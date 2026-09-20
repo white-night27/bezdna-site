@@ -221,13 +221,21 @@ export default function Home() {
               </figure>
               <figure className="food-card">
                 <picture>
-                  <source srcSet="/food/pizza-dyavolitsa-v2.avif" type="image/avif" />
-                  <source srcSet="/food/pizza-dyavolitsa-v2.webp" type="image/webp" />
+                  <source
+                    srcSet="/food/pizza-dyavolitsa-640.avif 640w, /food/pizza-dyavolitsa-960.avif 960w"
+                    sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 25vw"
+                    type="image/avif"
+                  />
+                  <source
+                    srcSet="/food/pizza-dyavolitsa-640.webp 640w, /food/pizza-dyavolitsa-960.webp 960w"
+                    sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 25vw"
+                    type="image/webp"
+                  />
                   <img
-                    src="/food/pizza-dyavolitsa-v2.webp"
+                    src="/food/pizza-dyavolitsa-640.webp"
                     alt="Острая пицца Дьяволица с чоризо и халапеньо"
-                    width="1600"
-                    height="1200"
+                    width="640"
+                    height="480"
                     loading="lazy"
                     decoding="async"
                   />
