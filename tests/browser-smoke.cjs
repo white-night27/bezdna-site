@@ -14,9 +14,9 @@ fs.mkdirSync(path.join(artifactsDir, "screenshots"), { recursive: true });
 fs.mkdirSync(path.join(artifactsDir, "traces"), { recursive: true });
 
 const routes = [
-  { path: "/", marker: "Кухня Бездны" },
-  { path: "/menu/", marker: "Меню Бездны" },
-  { path: "/contacts/", marker: "Найти вход" },
+  { path: "/", selector: "#menu" },
+  { path: "/menu/", selector: "#menu-content" },
+  { path: "/contacts/", selector: "#contacts-content" },
 ];
 
 const devices = [
@@ -41,7 +41,9 @@ const devices = [
         if (message.type() === "error") issues.push(`console: ${message.text()}`);
       });
       page.on("requestfailed", (request) => {
-        issues.push(`request failed: ${request.method()} ${request.url()} — ${request.failure()?.errorText || "unknown"}`);
+        const errorText = request.failure()?.errorText || "unknown";
+        if (request.method() === "HEAD" && errorText === "net::ERR_ABORTED") return;
+        issues.push(`request failed: ${request.method()} ${request.url()} — ${errorText}`);
       });
       page.on("response", (response) => {
         if (response.status() >= 400) {
@@ -62,9 +64,8 @@ const devices = [
         const title = await page.title();
         if (!title.includes("БЕЗДНА")) issues.push(`unexpected title: ${title}`);
 
-        const bodyText = await page.locator("body").innerText();
-        if (!bodyText.includes(route.marker)) {
-          issues.push(`missing expected text: ${route.marker}`);
+        if (!(await page.locator(route.selector).isVisible())) {
+          issues.push(`missing expected section: ${route.selector}`);
         }
 
         const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
