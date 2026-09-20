@@ -503,6 +503,16 @@
     object-fit:cover;
     transition:transform 0.7s ease;
   }
+  .food-card-cutout{
+    background:
+      radial-gradient(circle at 52% 42%, rgba(122,20,20,0.22), transparent 62%),
+      var(--panel);
+  }
+  .food-card-cutout > img{
+    object-fit:contain;
+    object-position:center 42%;
+    padding:clamp(0.45rem, 1.1vw, 1rem);
+  }
   .food-card:hover img{ transform:scale(1.025); }
   .food-card::after{
     content:'';
