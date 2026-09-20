@@ -15,7 +15,7 @@
 
     --f-display: 'Caveat', sans-serif;
     --f-label: 'Oswald', sans-serif;
-    --f-body: 'Manrope', sans-serif;
+    --f-body: ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
     --container: 1240px;
     --gap: clamp(1.5rem, 4vw, 4rem);
