@@ -1,5 +1,6 @@
 /*
   Alt-Svc: clear
+  Content-Security-Policy: script-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'
 
 /food/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
