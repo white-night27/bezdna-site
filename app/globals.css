@@ -1606,3 +1606,7 @@ section:not(.hero)::before{
     grid-column:auto;
   }
 }
+
+
+/* Force a fresh stylesheet URL after the custom-domain loading incident. */
+:root{--bezdna-release:20260921;}
