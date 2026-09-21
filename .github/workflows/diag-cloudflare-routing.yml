@@ -1,0 +1,76 @@
+name: Diagnose Cloudflare routing
+
+on:
+  push:
+    branches:
+      - diag/cloudflare-routing-20260921
+    paths:
+      - .github/workflows/diag-cloudflare-routing.yml
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Inspect zone DNS and Pages routing
+        env:
+          CF_TOKEN_PRIMARY: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_TOKEN_ALT: ${{ secrets.CF_API_TOKEN }}
+          CF_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+        run: |
+          set -euo pipefail
+          TOKEN="$CF_TOKEN_PRIMARY"
+          if [ -z "$TOKEN" ]; then TOKEN="$CF_TOKEN_ALT"; fi
+          if [ -z "$TOKEN" ]; then
+            echo "::error::No Cloudflare API token available"
+            exit 2
+          fi
+
+          auth=(-H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json")
+
+          ZONE_ID="$CF_ZONE_ID"
+          if [ -z "$ZONE_ID" ]; then
+            ZONE_JSON="$(curl -fsS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones?name=bezdna-bar.ru&status=active")"
+            ZONE_ID="$(python3 - "$ZONE_JSON" <<'PY'
+          import json,sys
+          d=json.loads(sys.argv[1])
+          print(d.get("result",[{}])[0].get("id","") if d.get("success") and d.get("result") else "")
+          PY
+          )"
+          fi
+          test -n "$ZONE_ID"
+
+          echo "=== DNS: apex ==="
+          curl -fsS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?name=bezdna-bar.ru"             | python3 -c 'import json,sys; d=json.load(sys.stdin); print(json.dumps([{k:r.get(k) for k in ("type","name","content","proxied","ttl")} for r in d.get("result",[])], ensure_ascii=False, indent=2))'
+
+          echo "=== DNS: www ==="
+          curl -fsS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?name=www.bezdna-bar.ru"             | python3 -c 'import json,sys; d=json.load(sys.stdin); print(json.dumps([{k:r.get(k) for k in ("type","name","content","proxied","ttl")} for r in d.get("result",[])], ensure_ascii=False, indent=2))'
+
+          echo "=== HTTP/3 setting ==="
+          curl -fsS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/settings/http3"             | python3 -c 'import json,sys; d=json.load(sys.stdin); r=d.get("result",{}); print(json.dumps({"success":d.get("success"),"value":r.get("value"),"editable":r.get("editable")}, indent=2))'
+
+          echo "=== Zone plan/status ==="
+          curl -fsS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones/$ZONE_ID"             | python3 -c 'import json,sys; d=json.load(sys.stdin); r=d.get("result",{}); print(json.dumps({"status":r.get("status"),"paused":r.get("paused"),"type":r.get("type"),"plan":(r.get("plan") or {}).get("name")}, indent=2))'
+
+          echo "=== Accounts ==="
+          ACCOUNTS="$(curl -fsS "${auth[@]}" "https://api.cloudflare.com/client/v4/accounts")"
+          python3 - "$ACCOUNTS" <<'PY'
+          import json,sys
+          d=json.loads(sys.argv[1])
+          print(json.dumps([{"id":x.get("id"),"name":x.get("name")} for x in d.get("result",[])], ensure_ascii=False, indent=2))
+          PY
+
+          ACCOUNT_ID="$(python3 - "$ACCOUNTS" <<'PY'
+          import json,sys
+          d=json.loads(sys.argv[1])
+          print((d.get("result") or [{}])[0].get("id",""))
+          PY
+          )"
+
+          if [ -n "$ACCOUNT_ID" ]; then
+            echo "=== Pages project bezdna-site ==="
+            curl -sS "${auth[@]}" "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/pages/projects/bezdna-site"               | python3 -c 'import json,sys; d=json.load(sys.stdin); r=d.get("result") or {}; print(json.dumps({"success":d.get("success"),"name":r.get("name"),"subdomain":r.get("subdomain"),"production_branch":r.get("production_branch"),"domains":r.get("domains")}, ensure_ascii=False, indent=2))'
+          fi
