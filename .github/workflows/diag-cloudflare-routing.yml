@@ -6,6 +6,9 @@ on:
       - diag/cloudflare-routing-20260921
     paths:
       - .github/workflows/diag-cloudflare-routing.yml
+  pull_request:
+    paths:
+      - .github/workflows/diag-cloudflare-routing.yml
 
 permissions:
   contents: read
