@@ -91,3 +91,14 @@ test("identifies the site owner and links to legal details", async () => {
   assert.match(legalSource, /legalDetails\.legalAddress/);
   assert.match(legalSource, /mailto:/);
 });
+
+
+test("exports complete HTML without the Next client runtime", async () => {
+  const html = await readFile(new URL("../out/index.html", import.meta.url), "utf8");
+  assert.match(html, /БЕЗДНА — тапрум и кухня, Санкт-Петербург/);
+  assert.match(html, /<style[^>]*>[^<]*|<style/i);
+  assert.match(html, /application\/ld\+json/);
+  assert.match(html, /src="\/site\.js"/);
+  assert.doesNotMatch(html, /<script[^>]+src="[^"]*_next\/static\/chunks\//i);
+  assert.doesNotMatch(html, /<link[^>]+rel="(?:preload|modulepreload)"/i);
+});
