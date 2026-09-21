@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Caveat, Manrope, Oswald } from "next/font/google";
-import "./globals.css";
+import { inlineStyles } from "./inline-styles";
 
 const siteUrl = "https://bezdna-bar.ru";
 
