@@ -3,29 +3,6 @@ import { inlineStyles } from "./inline-styles";
 
 const siteUrl = "https://bezdna-bar.ru";
 
-const displayFont = Caveat({
-  subsets: ["latin", "cyrillic"],
-  weight: "400",
-  variable: "--f-display",
-  display: "swap",
-});
-
-const labelFont = Oswald({
-  subsets: ["latin", "cyrillic"],
-  weight: "500",
-  variable: "--f-label",
-  display: "swap",
-  preload: false,
-});
-
-const bodyFont = Manrope({
-  subsets: ["latin", "cyrillic"],
-  weight: ["400", "700"],
-  variable: "--f-body",
-  display: "swap",
-  preload: false,
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "БЕЗДНА — тапрум и кухня, Санкт-Петербург",
@@ -87,10 +64,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="ru">
       <head>
+        <style dangerouslySetInnerHTML={{ __html: inlineStyles }} />
         <meta name="theme-color" content="#070606" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </head>
-      <body className={`${displayFont.variable} ${labelFont.variable} ${bodyFont.variable}`}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
