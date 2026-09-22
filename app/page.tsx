@@ -2,6 +2,7 @@ import Image from "next/image";
 import { features, legalDetails, menuCategories, navigation, venue } from "./content";
 
 const imageOrigin = "https://bezdna-site.vercel.app";
+const menuUrl = `${imageOrigin}/menu/`;
 
 const atmosphere = [
   {
@@ -47,7 +48,7 @@ export default function Home() {
               ))}
             </ul>
           </nav>
-          <a href="/menu/" className="header-menu-cta" data-conversion="menu-header">
+          <a href={menuUrl} className="btn btn-primary header-menu-cta" data-conversion="menu-header">
             Посмотреть меню
           </a>
           <a href={venue.phoneHref} className="nav-cta" data-conversion="phone-header">
@@ -132,7 +133,7 @@ export default function Home() {
                 <a href={venue.phoneHref} className="btn btn-primary" data-conversion="phone-hero">
                   Позвонить и забронировать
                 </a>
-                <a href="/menu/" className="btn btn-ghost" data-conversion="menu-hero">
+                <a href={menuUrl} className="btn btn-primary" data-conversion="menu-hero">
                   Посмотреть меню
                 </a>
               </div>
@@ -198,11 +199,11 @@ export default function Home() {
               ))}
             </ul>
             <div className="menu-actions">
-              <a href="/menu" className="btn btn-primary" data-conversion="menu-full">Открыть полное меню</a>
+              <a href={menuUrl} className="btn btn-primary" data-conversion="menu-full">Открыть полное меню</a>
               <a href={venue.phoneHref} className="btn btn-ghost" data-conversion="phone-menu-section">Уточнить наличие</a>
             </div>
             <div className="food-gallery">
-              <figure className="food-card food-card-wide food-card-cutout food-card-ribs">
+              <figure className="food-card food-card-cutout food-card-ribs">
                 <img
                   src={`${imageOrigin}/food/ribs-krutoyar-v2.webp`}
                   alt="Свиные рёбра «Крутояр» с мочёными огурчиками и салатом коул слоу"

@@ -1624,54 +1624,47 @@ section:not(.hero)::before{
 
 /* ============ FOOD PRIORITY + DIRECT MENU ACCESS ============ */
 .header-menu-cta{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
+  margin-left:auto;
   min-height:40px;
-  padding:0.72rem 1.05rem;
-  border:1px solid rgba(176,138,85,0.48);
-  background:rgba(176,138,85,0.075);
-  color:var(--bone);
-  font-family:var(--f-label);
-  font-size:0.72rem;
-  line-height:1;
-  font-weight:700;
-  letter-spacing:0.12em;
-  text-transform:uppercase;
+  padding:0.78rem 1.2rem;
   white-space:nowrap;
-  transition:background .2s ease,border-color .2s ease,color .2s ease,transform .2s ease;
-}
-.header-menu-cta:hover,
-.header-menu-cta:focus-visible{
-  background:var(--bone);
-  border-color:var(--bone);
-  color:var(--void);
-  transform:translateY(-1px);
+  position:relative;
+  z-index:5;
 }
 
+.hero-ctas{
+  position:relative;
+  z-index:4;
+}
+.hero-ctas .btn-primary{
+  min-width:13.5rem;
+}
+
+/* Three dishes should feel like one coherent set, not one oversized tile. */
 .food-gallery{
-  grid-template-columns:1.75fr 1fr 1fr;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  align-items:stretch;
 }
-
-/* Ribs are the commercial hero of the food row. */
+.food-card{
+  min-height:clamp(23rem,32vw,30rem);
+}
 .food-card-ribs{
-  min-height:clamp(24rem,40vw,35rem);
+  min-height:clamp(23rem,32vw,30rem);
 }
-.food-card-ribs > img{
-  object-fit:contain;
-  object-position:center 27%;
-  padding:0.15rem 0.15rem 4.8rem;
-  transform:scale(1.12);
-  transform-origin:center 38%;
-}
-
-/* Burger remains important, but no longer dominates the gallery. */
+.food-card-ribs > img,
 .food-card-burger > img{
   object-fit:contain;
-  object-position:center 40%;
-  padding:1.15rem 1.15rem 5.6rem;
-  transform:scale(0.94);
   transform-origin:center 40%;
+}
+.food-card-ribs > img{
+  object-position:center 31%;
+  padding:0.9rem 0.9rem 5.6rem;
+  transform:scale(1.04);
+}
+.food-card-burger > img{
+  object-position:center 39%;
+  padding:0.9rem 0.9rem 5.6rem;
+  transform:scale(0.98);
 }
 
 /*
@@ -1723,14 +1716,14 @@ a[href^="tel:"]{
     margin-left:auto;
   }
   .food-gallery{
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:1fr;
   }
-  .food-card-wide{
-    grid-column:1 / -1;
+  .food-card{
+    min-height:24rem;
   }
   .food-card-ribs > img{
-    transform:scale(1.1);
-    padding:0 0 5.2rem;
+    transform:scale(1.04);
+    padding:0.75rem 0.75rem 5.8rem;
   }
 }
 
@@ -1740,23 +1733,23 @@ a[href^="tel:"]{
   }
   .header-menu-cta{
     min-height:38px;
-    padding:0.62rem 0.72rem;
+    padding:0.64rem 0.78rem;
     font-size:0.64rem;
     letter-spacing:0.08em;
   }
   .food-gallery{
     grid-template-columns:1fr;
   }
-  .food-card-wide{
-    grid-column:auto;
+  .food-card{
+    min-height:23rem;
   }
   .food-card-ribs{
-    min-height:27rem;
+    min-height:23rem;
   }
   .food-card-ribs > img{
-    transform:scale(1.16);
-    padding:0 0 6.1rem;
-    object-position:center 23%;
+    transform:scale(1.03);
+    padding:0.65rem 0.65rem 5.9rem;
+    object-position:center 29%;
   }
   .food-card-pizza picture img{
     padding:0.5rem 0.35rem 6.8rem;
