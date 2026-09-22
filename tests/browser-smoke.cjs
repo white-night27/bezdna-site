@@ -79,21 +79,47 @@ const devices = [
           const galleryMetrics = await page.evaluate(() => {
             const gallery = document.querySelector(".food-gallery");
             const cards = [...document.querySelectorAll(".food-gallery .food-card")];
-            const ribs = document.querySelector(".food-card-ribs img");
+            const ribsCard = document.querySelector(".food-card-ribs");
+            const burgerCard = document.querySelector(".food-card-burger");
+            const pizzaCard = document.querySelector(".food-card-pizza");
+            const ribs = ribsCard?.querySelector("img");
+            const pizza = pizzaCard?.querySelector("img");
+            const phone = document.querySelector(".contact-phone a");
+            const menuButton = document.querySelector(".header-menu-cta");
             if (!gallery) return null;
             const gr = gallery.getBoundingClientRect();
+            const ribsRect = ribsCard?.getBoundingClientRect();
+            const burgerRect = burgerCard?.getBoundingClientRect();
+            const phoneRect = phone?.getBoundingClientRect();
             return {
               galleryWidth: gr.width,
               cardWidths: cards.map(card => card.getBoundingClientRect().width),
               ribsFit: ribs ? getComputedStyle(ribs).objectFit : null,
               ribsLoaded: ribs ? ribs.complete && ribs.naturalWidth > 0 : false,
+              pizzaLoaded: pizza ? pizza.complete && pizza.naturalWidth > 0 : false,
+              ribsWidth: ribsRect?.width || 0,
+              burgerWidth: burgerRect?.width || 0,
+              phoneHeight: phoneRect?.height || 0,
+              phoneLineHeight: phone ? parseFloat(getComputedStyle(phone).lineHeight) || 0 : 0,
+              menuHref: menuButton?.getAttribute("href") || "",
+              menuVisible: menuButton ? getComputedStyle(menuButton).display !== "none" : false,
             };
           });
           if (!galleryMetrics) {
             issues.push("food gallery not found");
           } else {
             if (!galleryMetrics.ribsLoaded) issues.push("ribs image did not load");
+            if (!galleryMetrics.pizzaLoaded) issues.push("pizza image did not load");
             if (galleryMetrics.ribsFit !== "contain") issues.push(`ribs object-fit is ${galleryMetrics.ribsFit}`);
+            if (!galleryMetrics.menuVisible || galleryMetrics.menuHref !== "/menu/") {
+              issues.push(`header menu button is not a visible direct /menu/ link: ${galleryMetrics.menuHref}`);
+            }
+            if (!device.isMobile && galleryMetrics.ribsWidth <= galleryMetrics.burgerWidth * 1.35) {
+              issues.push(`ribs card is not dominant enough: ribs=${galleryMetrics.ribsWidth}, burger=${galleryMetrics.burgerWidth}`);
+            }
+            if (galleryMetrics.phoneLineHeight && galleryMetrics.phoneHeight > galleryMetrics.phoneLineHeight * 1.35) {
+              issues.push(`contact phone wraps to multiple lines: height=${galleryMetrics.phoneHeight}, lineHeight=${galleryMetrics.phoneLineHeight}`);
+            }
             if (device.isMobile && galleryMetrics.cardWidths.some(width => width < galleryMetrics.galleryWidth * 0.9)) {
               issues.push(`mobile food cards are still multi-column: ${galleryMetrics.cardWidths.join(",")} / ${galleryMetrics.galleryWidth}`);
             }

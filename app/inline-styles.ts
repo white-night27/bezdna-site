@@ -1620,4 +1620,153 @@ section:not(.hero)::before{
   --f-label:"Oswald","Arial Narrow","Roboto Condensed",Arial,sans-serif;
   --f-body:"Manrope","Avenir Next","Segoe UI",Arial,sans-serif;
 }
+
+
+/* ============ FOOD PRIORITY + DIRECT MENU ACCESS ============ */
+.header-menu-cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:40px;
+  padding:0.72rem 1.05rem;
+  border:1px solid rgba(176,138,85,0.48);
+  background:rgba(176,138,85,0.075);
+  color:var(--bone);
+  font-family:var(--f-label);
+  font-size:0.72rem;
+  line-height:1;
+  font-weight:700;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  white-space:nowrap;
+  transition:background .2s ease,border-color .2s ease,color .2s ease,transform .2s ease;
+}
+.header-menu-cta:hover,
+.header-menu-cta:focus-visible{
+  background:var(--bone);
+  border-color:var(--bone);
+  color:var(--void);
+  transform:translateY(-1px);
+}
+
+.food-gallery{
+  grid-template-columns:1.75fr 1fr 1fr;
+}
+
+/* Ribs are the commercial hero of the food row. */
+.food-card-ribs{
+  min-height:clamp(24rem,40vw,35rem);
+}
+.food-card-ribs > img{
+  object-fit:contain;
+  object-position:center 27%;
+  padding:0.15rem 0.15rem 4.8rem;
+  transform:scale(1.12);
+  transform-origin:center 38%;
+}
+
+/* Burger remains important, but no longer dominates the gallery. */
+.food-card-burger > img{
+  object-fit:contain;
+  object-position:center 40%;
+  padding:1.15rem 1.15rem 5.6rem;
+  transform:scale(0.94);
+  transform-origin:center 40%;
+}
+
+/*
+  The pizza source is a rectangular photo. Fade the photo edges into the dark
+  card and use light blending so the rectangle disappears visually, while the
+  pizza itself remains crisp. This avoids introducing another network asset.
+*/
+.food-card-pizza{
+  background:
+    radial-gradient(circle at 50% 38%,rgba(198,60,46,0.13),transparent 48%),
+    #0b0807;
+}
+.food-card-pizza picture{
+  position:absolute;
+  inset:0;
+  display:block;
+}
+.food-card-pizza picture img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center 30%;
+  padding:0.7rem 0.55rem 6.4rem;
+  mix-blend-mode:screen;
+  -webkit-mask-image:radial-gradient(ellipse 50% 44% at 50% 37%,#000 72%,rgba(0,0,0,.96) 82%,transparent 100%);
+  mask-image:radial-gradient(ellipse 50% 44% at 50% 37%,#000 72%,rgba(0,0,0,.96) 82%,transparent 100%);
+}
+.food-card-pizza strong{
+  font-size:clamp(1.45rem,2.35vw,2.18rem);
+  line-height:0.92;
+  max-width:100%;
+  overflow-wrap:normal;
+  word-break:normal;
+}
+
+/* Phone numbers must never split across lines. */
+a[href^="tel:"]{
+  white-space:nowrap;
+}
+.contact-phone a{
+  display:inline-block;
+  max-width:100%;
+  font-size:clamp(1.28rem,2.15vw,1.9rem);
+}
+
+/* Keep the menu action visible in the header on tablet/mobile too. */
+@media (max-width:900px){
+  .header-menu-cta{
+    margin-left:auto;
+  }
+  .food-gallery{
+    grid-template-columns:1fr 1fr;
+  }
+  .food-card-wide{
+    grid-column:1 / -1;
+  }
+  .food-card-ribs > img{
+    transform:scale(1.1);
+    padding:0 0 5.2rem;
+  }
+}
+
+@media (max-width:560px){
+  .nav-inner{
+    gap:0.55rem;
+  }
+  .header-menu-cta{
+    min-height:38px;
+    padding:0.62rem 0.72rem;
+    font-size:0.64rem;
+    letter-spacing:0.08em;
+  }
+  .food-gallery{
+    grid-template-columns:1fr;
+  }
+  .food-card-wide{
+    grid-column:auto;
+  }
+  .food-card-ribs{
+    min-height:27rem;
+  }
+  .food-card-ribs > img{
+    transform:scale(1.16);
+    padding:0 0 6.1rem;
+    object-position:center 23%;
+  }
+  .food-card-pizza picture img{
+    padding:0.5rem 0.35rem 6.8rem;
+    object-position:center 27%;
+  }
+  .food-card-pizza strong{
+    font-size:1.85rem;
+  }
+  .contact-phone a{
+    font-size:clamp(1.28rem,7vw,1.75rem);
+  }
+}
 `;
