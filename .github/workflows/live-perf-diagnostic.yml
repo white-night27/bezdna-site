@@ -1,0 +1,104 @@
+name: Live performance diagnostic
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/live-perf-diagnostic.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Probe live HTML and origins
+        shell: bash
+        run: |
+          set -euo pipefail
+          for base in "https://bezdna-bar.ru" "https://bezdna-site.vercel.app" "https://bezdna-site1.pages.dev"; do
+            echo
+            echo "===== $base ====="
+            curl -L --http2 -fsS --connect-timeout 10 --max-time 30 \
+              -D /tmp/headers -o /tmp/page.html \
+              -w 'http=%{http_code} proto=%{http_version} bytes=%{size_download} connect=%{time_connect}s ttfb=%{time_starttransfer}s total=%{time_total}s\n' \
+              "$base/?perfdiag=$(date +%s)"
+            grep -Ei '^(HTTP/|content-type:|cache-control:|alt-svc:|server:|cf-cache-status:|x-vercel-cache:)' /tmp/headers || true
+            echo "next_chunk_scripts=$(grep -o '<script[^>]*_next/static/chunks[^>]*>' /tmp/page.html | wc -l)"
+            echo "preloads=$(grep -o 'rel="preload"' /tmp/page.html | wc -l)"
+            echo "modulepreloads=$(grep -o 'rel="modulepreload"' /tmp/page.html | wc -l)"
+            echo "sitejs=$(grep -o '/site.js' /tmp/page.html | wc -l)"
+            echo "food_vercel_refs=$(grep -o 'https://bezdna-site.vercel.app/food/' /tmp/page.html | wc -l)"
+            echo "food_local_refs=$(grep -o 'src="/food/' /tmp/page.html | wc -l)"
+          done
+
+      - name: Browser cold-load comparison
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/perf
+          cd /tmp/perf
+          npm init -y >/dev/null 2>&1
+          npm i playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install --with-deps chromium >/dev/null 2>&1
+          cat > perf.cjs <<'NODE'
+          const { chromium } = require("playwright");
+
+          const targets = [
+            ["custom", "https://bezdna-bar.ru/?perfdiag=browser"],
+            ["vercel", "https://bezdna-site.vercel.app/?perfdiag=browser"],
+            ["pages", "https://bezdna-site1.pages.dev/?perfdiag=browser"],
+          ];
+
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            for(const [name,url] of targets){
+              const context=await browser.newContext({
+                viewport:{width:1440,height:900},
+                serviceWorkers:"block",
+              });
+              const page=await context.newPage();
+              const failures=[];
+              page.on("requestfailed",r=>failures.push({url:r.url(),err:r.failure()?.errorText}));
+              const t0=Date.now();
+              await page.goto(url,{waitUntil:"load",timeout:45000});
+              const loadMs=Date.now()-t0;
+              await page.waitForTimeout(1500);
+              const perf=await page.evaluate(()=>{
+                const nav=performance.getEntriesByType("navigation")[0];
+                const resources=performance.getEntriesByType("resource").map(r=>({
+                  name:r.name,
+                  type:r.initiatorType,
+                  duration:Math.round(r.duration),
+                  transfer:r.transferSize,
+                  body:r.encodedBodySize,
+                  proto:r.nextHopProtocol,
+                  start:Math.round(r.startTime),
+                }));
+                const imgs=[...document.images].map(i=>({src:i.currentSrc||i.src,complete:i.complete,nw:i.naturalWidth,nh:i.naturalHeight}));
+                return {
+                  ready:document.readyState,
+                  nav:nav?{
+                    ttfb:Math.round(nav.responseStart),
+                    domContentLoaded:Math.round(nav.domContentLoadedEventEnd),
+                    loadEvent:Math.round(nav.loadEventEnd),
+                    transfer:nav.transferSize,
+                    body:nav.encodedBodySize,
+                    proto:nav.nextHopProtocol,
+                  }:null,
+                  resources,
+                  imgs,
+                };
+              });
+              const totalBytes=perf.resources.reduce((a,r)=>a+(r.transfer||0),0)+(perf.nav?.transfer||0);
+              const nextChunks=perf.resources.filter(r=>r.name.includes("/_next/static/chunks/"));
+              const slowest=[...perf.resources].sort((a,b)=>b.duration-a.duration).slice(0,12);
+              console.log(JSON.stringify({name,url,loadMs,totalBytes,nextChunks:nextChunks.length,nav:perf.nav,images:perf.imgs,slowest,failures},null,2));
+              await context.close();
+            }
+            await browser.close();
+          })().catch(e=>{console.error(e);process.exit(1)});
+          NODE
+          node perf.cjs
