@@ -123,6 +123,7 @@ const devices = [
         return {
           menuHref: menu?.getAttribute("href") || "",
           menuVisible: !!menu && getComputedStyle(menu).display !== "none" && menu.getBoundingClientRect().width > 0,
+          cardWidths: [...document.querySelectorAll(".food-gallery .food-card")].map(card => Math.round(card.getBoundingClientRect().width)),
           ribsWidth: rr?.width || 0,
           burgerWidth: br?.width || 0,
           phoneHeight: pr?.height || 0,
@@ -141,12 +142,20 @@ const devices = [
       const ribs = imageInfo.find(x => x.src?.includes("ribs-krutoyar"));
       if (!ribs) issues.push("ribs image not found");
       if (ribs && ribs.objectFit !== "contain") issues.push(`ribs object-fit is ${ribs.objectFit}, expected contain`);
-      if (!requestedUi.menuVisible || requestedUi.menuHref !== "/menu/") {
-        issues.push(`top menu CTA is not a visible direct /menu/ link: ${requestedUi.menuHref}`);
+      if (!requestedUi.menuVisible || requestedUi.menuHref !== "#menu") {
+        issues.push(`top menu CTA is not a visible #menu link: ${requestedUi.menuHref}`);
       }
-      if (!device.isMobile && requestedUi.ribsWidth <= requestedUi.burgerWidth * 1.35) {
-        issues.push(`ribs are not the dominant food card: ribs=${requestedUi.ribsWidth}, burger=${requestedUi.burgerWidth}`);
+      if (!device.isMobile && requestedUi.cardWidths.length) {
+        const maxWidth = Math.max(...requestedUi.cardWidths);
+        const minWidth = Math.min(...requestedUi.cardWidths);
+        if (maxWidth - minWidth > 8) issues.push(`food cards are not proportionate: ${requestedUi.cardWidths.join(",")}`);
       }
+
+      const topMenu = page.locator(".header-menu-cta");
+      await topMenu.click();
+      await page.waitForTimeout(150);
+      if (!page.url().endsWith("#menu")) issues.push(`top menu CTA did not navigate to #menu: ${page.url()}`);
+      if (!(await page.locator("#menu").isVisible())) issues.push("menu section not visible after top menu CTA click");
       if (requestedUi.phoneWhiteSpace !== "nowrap") {
         issues.push(`phone white-space is ${requestedUi.phoneWhiteSpace}, expected nowrap`);
       }
