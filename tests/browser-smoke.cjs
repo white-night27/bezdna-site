@@ -111,11 +111,16 @@ const devices = [
             if (!galleryMetrics.ribsLoaded) issues.push("ribs image did not load");
             if (!galleryMetrics.pizzaLoaded) issues.push("pizza image did not load");
             if (galleryMetrics.ribsFit !== "contain") issues.push(`ribs object-fit is ${galleryMetrics.ribsFit}`);
-            if (!galleryMetrics.menuVisible || galleryMetrics.menuHref !== "/menu/") {
-              issues.push(`header menu button is not a visible direct /menu/ link: ${galleryMetrics.menuHref}`);
+            if (!galleryMetrics.menuVisible || galleryMetrics.menuHref !== "#menu") {
+              issues.push(`header menu button is not a visible #menu link: ${galleryMetrics.menuHref}`);
             }
-            if (!device.isMobile && galleryMetrics.ribsWidth <= galleryMetrics.burgerWidth * 1.35) {
-              issues.push(`ribs card is not dominant enough: ribs=${galleryMetrics.ribsWidth}, burger=${galleryMetrics.burgerWidth}`);
+            if (!device.isMobile) {
+              const widths = galleryMetrics.cardWidths.filter(Boolean);
+              const maxWidth = Math.max(...widths);
+              const minWidth = Math.min(...widths);
+              if (maxWidth - minWidth > 8) {
+                issues.push(`desktop food cards are not proportionate: ${widths.join(",")}`);
+              }
             }
             if (galleryMetrics.phoneLineHeight && galleryMetrics.phoneHeight > galleryMetrics.phoneLineHeight * 1.35) {
               issues.push(`contact phone wraps to multiple lines: height=${galleryMetrics.phoneHeight}, lineHeight=${galleryMetrics.phoneLineHeight}`);
@@ -123,6 +128,16 @@ const devices = [
             if (device.isMobile && galleryMetrics.cardWidths.some(width => width < galleryMetrics.galleryWidth * 0.9)) {
               issues.push(`mobile food cards are still multi-column: ${galleryMetrics.cardWidths.join(",")} / ${galleryMetrics.galleryWidth}`);
             }
+          }
+
+          const menuButton = page.locator(".header-menu-cta");
+          if (!(await menuButton.isVisible())) {
+            issues.push("top menu button is not visible");
+          } else {
+            await menuButton.click();
+            await page.waitForTimeout(150);
+            if (!page.url().endsWith("#menu")) issues.push(`top menu button did not navigate to #menu: ${page.url()}`);
+            if (!(await page.locator("#menu").isVisible())) issues.push("menu section is not visible after top menu click");
           }
 
           if (device.isMobile) {
