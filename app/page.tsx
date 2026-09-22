@@ -114,27 +114,15 @@ export default function Home() {
 
           <div className="hero-content">
             <div className="container">
-              <div className="hero-kicker-row">
-                <p className="eyebrow">{venue.label}</p>
-                <span className="hero-index" aria-hidden="true">СПБ · РИЖСКИЙ 12 · 16—03</span>
-              </div>
-
-              <h1 className="hero-title" aria-label="Бездна">
-                <span>БЕЗ</span>
-                <span className="hero-title-accent">ДНА</span>
+              <p className="eyebrow">{venue.label}</p>
+              <h1 className="hero-title">
+                БЕЗ
+                <br />
+                <em>ДНА</em>
               </h1>
-
-              <div className="hero-support-grid">
-                <p className="hero-sub">
-                  Комната с кранами на Рижском проспекте — и куда больше, чем кажется с порога. <strong>Крафтовое пиво</strong>, кухня без полуфабрикатов и щупальца на стенах вместо декора.
-                </p>
-                <div className="hero-hours-card" aria-label="Часы работы и адрес">
-                  <span>Сегодня</span>
-                  <strong>{venue.hours}</strong>
-                  <small>Рижский пр., 12 · м. Балтийская</small>
-                </div>
-              </div>
-
+              <p className="hero-sub">
+                Комната с кранами на Рижском проспекте — и куда больше, чем кажется с порога. <strong>Крафтовое пиво</strong>, кухня без полуфабрикатов и щупальца на стенах вместо декора.
+              </p>
               <div className="hero-ctas">
                 <a href={venue.phoneHref} className="btn btn-primary" data-conversion="phone-hero">
                   Позвонить и забронировать
