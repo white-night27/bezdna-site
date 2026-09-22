@@ -109,6 +109,31 @@ const devices = [
         });
       });
 
+      const requestedUi = await page.evaluate(() => {
+        const menu = document.querySelector(".header-menu-cta");
+        const ribsCard = document.querySelector(".food-card-ribs");
+        const burgerCard = document.querySelector(".food-card-burger");
+        const pizza = document.querySelector(".food-card-pizza img");
+        const phone = document.querySelector(".contact-phone a");
+        const rr = ribsCard?.getBoundingClientRect();
+        const br = burgerCard?.getBoundingClientRect();
+        const pr = phone?.getBoundingClientRect();
+        const phoneStyle = phone ? getComputedStyle(phone) : null;
+        const pizzaStyle = pizza ? getComputedStyle(pizza) : null;
+        return {
+          menuHref: menu?.getAttribute("href") || "",
+          menuVisible: !!menu && getComputedStyle(menu).display !== "none" && menu.getBoundingClientRect().width > 0,
+          ribsWidth: rr?.width || 0,
+          burgerWidth: br?.width || 0,
+          phoneHeight: pr?.height || 0,
+          phoneLineHeight: phoneStyle ? parseFloat(phoneStyle.lineHeight) || 0 : 0,
+          phoneWhiteSpace: phoneStyle?.whiteSpace || "",
+          pizzaLoaded: !!pizza && pizza.complete && pizza.naturalWidth > 0,
+          pizzaMask: pizzaStyle?.maskImage || pizzaStyle?.webkitMaskImage || "",
+          pizzaBlend: pizzaStyle?.mixBlendMode || "",
+        };
+      });
+
       for (const img of imageInfo) {
         if (!img.complete || img.naturalWidth < 1) issues.push(`broken image: ${img.src}`);
       }
@@ -116,6 +141,20 @@ const devices = [
       const ribs = imageInfo.find(x => x.src?.includes("ribs-krutoyar"));
       if (!ribs) issues.push("ribs image not found");
       if (ribs && ribs.objectFit !== "contain") issues.push(`ribs object-fit is ${ribs.objectFit}, expected contain`);
+      if (!requestedUi.menuVisible || requestedUi.menuHref !== "/menu/") {
+        issues.push(`top menu CTA is not a visible direct /menu/ link: ${requestedUi.menuHref}`);
+      }
+      if (!device.isMobile && requestedUi.ribsWidth <= requestedUi.burgerWidth * 1.35) {
+        issues.push(`ribs are not the dominant food card: ribs=${requestedUi.ribsWidth}, burger=${requestedUi.burgerWidth}`);
+      }
+      if (requestedUi.phoneWhiteSpace !== "nowrap") {
+        issues.push(`phone white-space is ${requestedUi.phoneWhiteSpace}, expected nowrap`);
+      }
+      if (requestedUi.phoneLineHeight && requestedUi.phoneHeight > requestedUi.phoneLineHeight * 1.35) {
+        issues.push(`phone wraps to multiple lines: height=${requestedUi.phoneHeight}, lineHeight=${requestedUi.phoneLineHeight}`);
+      }
+      if (!requestedUi.pizzaLoaded) issues.push("pizza image did not load");
+      if (!requestedUi.pizzaMask || requestedUi.pizzaMask === "none") issues.push("pizza cutout mask is not active");
 
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       if (overflow > 4) issues.push(`horizontal overflow ${overflow}px`);
@@ -153,7 +192,7 @@ const devices = [
         routes.push({ path:route.path, routeMs, title:routeTitle, textLength:routeTextLength });
       }
 
-      report.push({ device:device.name, domMs, title, resourceSummary, imageInfo, routes, failedRequests, issues });
+      report.push({ device:device.name, domMs, title, resourceSummary, imageInfo, requestedUi, routes, failedRequests, issues });
     } catch (e) {
       issues.push(`exception: ${e.stack || e.message}`);
       report.push({ device:device.name, failedRequests, issues });
