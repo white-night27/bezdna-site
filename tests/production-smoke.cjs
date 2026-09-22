@@ -123,7 +123,37 @@ const devices = [
       await page.screenshot({ path:path.join(out,`${device.name}-home.png`), fullPage:true });
       await food.screenshot({ path:path.join(out,`${device.name}-food.png`) });
 
-      report.push({ device:device.name, domMs, title, resourceSummary, imageInfo, failedRequests, issues });
+      const routeChecks = [
+        { path:"/menu/", selector:"#menu-content", titlePart:"Меню" },
+        { path:"/contacts/", selector:"#contacts-content", titlePart:"БЕЗДНА" },
+      ];
+      const routes = [];
+      for (const route of routeChecks) {
+        const routeStarted = Date.now();
+        const routeResponse = await page.goto(baseUrl + route.path, { waitUntil:"domcontentloaded", timeout:45000 });
+        const routeMs = Date.now() - routeStarted;
+        if (!routeResponse || !routeResponse.ok()) {
+          issues.push(`route navigation failed: ${route.path} — ${routeResponse?.status() || "no response"}`);
+        }
+        await page.waitForSelector(route.selector, { state:"visible", timeout:15000 });
+        const routeTitle = await page.title();
+        if (!routeTitle.includes(route.titlePart)) {
+          issues.push(`unexpected ${route.path} title: ${routeTitle}`);
+        }
+        const routeTextLength = await page.locator("main").innerText().then(text => text.trim().length);
+        if (routeTextLength < 100) {
+          issues.push(`suspiciously empty route: ${route.path} (${routeTextLength} chars)`);
+        }
+        const routeOverflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+        if (routeOverflow > 4) issues.push(`${route.path} horizontal overflow ${routeOverflow}px`);
+        await page.screenshot({
+          path:path.join(out,`${device.name}-${route.path.includes("menu") ? "menu" : "contacts"}.png`),
+          fullPage:true,
+        });
+        routes.push({ path:route.path, routeMs, title:routeTitle, textLength:routeTextLength });
+      }
+
+      report.push({ device:device.name, domMs, title, resourceSummary, imageInfo, routes, failedRequests, issues });
     } catch (e) {
       issues.push(`exception: ${e.stack || e.message}`);
       report.push({ device:device.name, failedRequests, issues });
