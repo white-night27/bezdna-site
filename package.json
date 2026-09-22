@@ -9,7 +9,7 @@
     "dev": "next dev",
     "build": "next build && node scripts/strip-next-runtime.mjs",
     "start": "next start",
-    "test": "pnpm build && node --test tests/rendered-html.test.mjs",
+    "test": "pnpm build && node --test tests/rendered-html.test.mjs tests/wait-for-production.test.cjs",
     "lint": "eslint . --ignore-pattern .next"
   },
   "dependencies": {

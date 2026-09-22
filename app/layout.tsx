@@ -1,7 +1,26 @@
 import type { Metadata } from "next";
+import { execFileSync } from "node:child_process";
 import { inlineStyles } from "./inline-styles";
 
 const siteUrl = "https://bezdna-bar.ru";
+function gitHead() {
+  try {
+    return execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim();
+  } catch {
+    return "";
+  }
+}
+
+// Vercel may hide system variables, but Git deployments still build from a clone.
+const deploymentCommit = process.env.CF_PAGES_COMMIT_SHA
+  || process.env.VERCEL_GIT_COMMIT_SHA
+  || process.env.GITHUB_SHA
+  || gitHead()
+  || (process.env.NODE_ENV === "development" ? "local" : "");
+
+if (deploymentCommit !== "local" && !/^[0-9a-f]{40}$/i.test(deploymentCommit)) {
+  throw new Error("Build requires a full Git SHA from the host or Git checkout");
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -67,6 +86,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="preconnect" href="https://bezdna-site.vercel.app" />
         <style dangerouslySetInnerHTML={{ __html: inlineStyles }} />
         <meta name="theme-color" content="#070606" />
+        <meta name="site-commit" content={deploymentCommit} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </head>
       <body>{children}</body>
