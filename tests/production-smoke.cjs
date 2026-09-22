@@ -142,8 +142,8 @@ const devices = [
       const ribs = imageInfo.find(x => x.src?.includes("ribs-krutoyar"));
       if (!ribs) issues.push("ribs image not found");
       if (ribs && ribs.objectFit !== "contain") issues.push(`ribs object-fit is ${ribs.objectFit}, expected contain`);
-      if (!requestedUi.menuVisible || requestedUi.menuHref !== "#menu") {
-        issues.push(`top menu CTA is not a visible #menu link: ${requestedUi.menuHref}`);
+      if (!requestedUi.menuVisible || requestedUi.menuHref !== "https://bezdna-site.vercel.app/menu/") {
+        issues.push(`top menu CTA is not routed through stable menu origin: ${requestedUi.menuHref}`);
       }
       if (!device.isMobile && requestedUi.cardWidths.length) {
         const maxWidth = Math.max(...requestedUi.cardWidths);
@@ -153,9 +153,10 @@ const devices = [
 
       const topMenu = page.locator(".header-menu-cta");
       await topMenu.click();
-      await page.waitForTimeout(150);
-      if (!page.url().endsWith("#menu")) issues.push(`top menu CTA did not navigate to #menu: ${page.url()}`);
-      if (!(await page.locator("#menu").isVisible())) issues.push("menu section not visible after top menu CTA click");
+      await page.waitForSelector("#menu-content", { state:"visible", timeout:15000 });
+      if (!page.url().startsWith("https://bezdna-site.vercel.app/menu/")) {
+        issues.push(`top menu CTA did not open stable full menu: ${page.url()}`);
+      }
       if (requestedUi.phoneWhiteSpace !== "nowrap") {
         issues.push(`phone white-space is ${requestedUi.phoneWhiteSpace}, expected nowrap`);
       }
