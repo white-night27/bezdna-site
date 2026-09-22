@@ -2113,6 +2113,13 @@ section:not(.hero)::before{
   .section-title{
     max-width:12ch;
   }
+  .atmos-row{
+    grid-template-columns:1fr;
+    gap:0.75rem;
+  }
+  .atmos-text{
+    padding-left:0;
+  }
   .about-grid{
     grid-template-columns:1fr;
   }
