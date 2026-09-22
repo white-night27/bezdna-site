@@ -2,6 +2,15 @@ import type { Metadata } from "next";
 import { inlineStyles } from "./inline-styles";
 
 const siteUrl = "https://bezdna-bar.ru";
+// Cloudflare Pages and Vercel inject the deployed Git commit at build time.
+const deploymentCommit = process.env.CF_PAGES_COMMIT_SHA
+  || process.env.VERCEL_GIT_COMMIT_SHA
+  || process.env.GITHUB_SHA
+  || "local";
+
+if (deploymentCommit !== "local" && !/^[0-9a-f]{40}$/i.test(deploymentCommit)) {
+  throw new Error("Invalid deployment commit SHA");
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -67,6 +76,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="preconnect" href="https://bezdna-site.vercel.app" />
         <style dangerouslySetInnerHTML={{ __html: inlineStyles }} />
         <meta name="theme-color" content="#070606" />
+        <meta name="site-commit" content={deploymentCommit} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </head>
       <body>{children}</body>

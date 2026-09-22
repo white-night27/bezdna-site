@@ -87,6 +87,8 @@ jobs:
 
 
   production-desktop-mobile:
+    # Pull requests use preview deployments; only main can match the live site.
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 12
 
@@ -98,6 +100,11 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: 22
+
+      - name: Wait for this commit on the live site
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: node tests/wait-for-production.cjs
 
       - name: Install Playwright
         run: |

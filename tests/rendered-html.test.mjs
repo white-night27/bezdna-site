@@ -37,6 +37,12 @@ test("renders the supplied Bezdna reference design and content", async () => {
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview|react-loading-skeleton/i);
 });
 
+test("publishes the build commit in the live homepage HTML", async () => {
+  const html = await readFile(new URL("../out/index.html", import.meta.url), "utf8");
+  const expected = process.env.CF_PAGES_COMMIT_SHA || process.env.VERCEL_GIT_COMMIT_SHA || process.env.GITHUB_SHA || "local";
+  assert.match(html, new RegExp(`<meta name="site-commit" content="${expected}"`));
+});
+
 test("renders a dedicated, indexable menu page", async () => {
   const html = await readBuiltRouteHtml("menu");
   assert.match(html, /Меню кухни — БЕЗДНА|Меню — БЕЗДНА/);
