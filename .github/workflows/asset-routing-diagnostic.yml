@@ -1,0 +1,41 @@
+name: Asset routing diagnostic
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/asset-routing-diagnostic.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Probe page and image delivery
+        shell: bash
+        run: |
+          set -u
+          urls=(
+            "https://bezdna-bar.ru/"
+            "https://bezdna-bar.ru/food/burger-krutoyar-v2.webp"
+            "https://bezdna-bar.ru/food/ribs-krutoyar-v2.webp"
+            "https://bezdna-bar.ru/food/pizza-dyavolitsa-640.webp"
+            "https://bezdna-bar.ru/food/pizza-dyavolitsa-640.avif"
+            "https://bezdna-site1.pages.dev/"
+            "https://bezdna-site1.pages.dev/food/burger-krutoyar-v2.webp"
+            "https://bezdna-site.vercel.app/"
+            "https://bezdna-site.vercel.app/food/burger-krutoyar-v2.webp"
+          )
+          for url in "${urls[@]}"; do
+            echo
+            echo "=== $url ==="
+            curl -L --connect-timeout 10 --max-time 25 -sS -o /tmp/body \
+              -D /tmp/headers \
+              -w 'http=%{http_code} remote=%{remote_ip} proto=%{http_version} type=%{content_type} bytes=%{size_download} connect=%{time_connect}s ttfb=%{time_starttransfer}s total=%{time_total}s\n' \
+              "$url" || echo "curl_exit=$?"
+            sed -n '1,30p' /tmp/headers || true
+            wc -c /tmp/body || true
+          done
