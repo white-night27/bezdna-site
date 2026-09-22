@@ -1,0 +1,67 @@
+name: Urgent live availability
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/urgent-live-availability.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: DNS
+        run: |
+          echo "A apex"; dig +short A bezdna-bar.ru
+          echo "AAAA apex"; dig +short AAAA bezdna-bar.ru
+          echo "A www"; dig +short A www.bezdna-bar.ru
+          echo "NS"; dig +short NS bezdna-bar.ru
+
+      - name: Repeated availability
+        shell: bash
+        run: |
+          set -u
+          targets=(
+            "https://bezdna-bar.ru/"
+            "https://www.bezdna-bar.ru/"
+            "https://bezdna-site.vercel.app/"
+            "https://bezdna-site1.pages.dev/"
+          )
+          for url in "${targets[@]}"; do
+            echo
+            echo "===== $url ====="
+            ok=0
+            fail=0
+            for i in 1 2 3 4 5 6 7 8; do
+              out="$(curl -L --http2 -sS -o /dev/null -D /tmp/h \
+                --connect-timeout 6 --max-time 15 \
+                -w 'code=%{http_code} remote=%{remote_ip} proto=%{http_version} connect=%{time_connect} ttfb=%{time_starttransfer} total=%{time_total}' \
+                "$url?probe=$GITHUB_RUN_ID-$i" 2>&1)"
+              ec=$?
+              echo "$i exit=$ec $out"
+              grep -Ei '^(server:|cf-ray:|alt-svc:|x-vercel-cache:|location:)' /tmp/h | tr '\n' ' ' || true
+              echo
+              if [ "$ec" -eq 0 ] && echo "$out" | grep -q 'code=200'; then ok=$((ok+1)); else fail=$((fail+1)); fi
+              sleep 1
+            done
+            echo "SUMMARY ok=$ok fail=$fail"
+          done
+
+      - name: HTTP1 vs HTTP2 custom domain
+        shell: bash
+        run: |
+          for mode in --http1.1 --http2; do
+            echo "=== $mode ==="
+            for i in 1 2 3 4 5; do
+              curl -L "$mode" -sS -o /dev/null -D /tmp/h \
+                --connect-timeout 6 --max-time 15 \
+                -w 'code=%{http_code} proto=%{http_version} connect=%{time_connect} ttfb=%{time_starttransfer} total=%{time_total}\n' \
+                "https://bezdna-bar.ru/?transport=$i" || true
+              grep -Ei '^(server:|cf-ray:|alt-svc:)' /tmp/h | tr '\n' ' ' || true
+              echo
+            done
+          done
