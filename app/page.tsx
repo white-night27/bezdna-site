@@ -47,6 +47,9 @@ export default function Home() {
               ))}
             </ul>
           </nav>
+          <a href="/menu/" className="header-menu-cta" data-conversion="menu-header">
+            Посмотреть меню
+          </a>
           <a href={venue.phoneHref} className="nav-cta" data-conversion="phone-header">
             Позвонить
           </a>
@@ -129,7 +132,7 @@ export default function Home() {
                 <a href={venue.phoneHref} className="btn btn-primary" data-conversion="phone-hero">
                   Позвонить и забронировать
                 </a>
-                <a href="#menu" className="btn btn-ghost">
+                <a href="/menu/" className="btn btn-ghost" data-conversion="menu-hero">
                   Посмотреть меню
                 </a>
               </div>
@@ -199,18 +202,7 @@ export default function Home() {
               <a href={venue.phoneHref} className="btn btn-ghost" data-conversion="phone-menu-section">Уточнить наличие</a>
             </div>
             <div className="food-gallery">
-              <figure className="food-card food-card-wide food-card-cutout">
-                <img
-                  src={`${imageOrigin}/food/burger-krutoyar-v2.webp`}
-                  alt="Бургер «Крутояр» с говяжьей котлетой, беконом, чеддером и картофелем"
-                  width="1100"
-                  height="778"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <figcaption><strong>Бургер «Крутояр»</strong><span>говядина · бекон · чеддер · хашбраун</span></figcaption>
-              </figure>
-              <figure className="food-card food-card-cutout food-card-ribs">
+              <figure className="food-card food-card-wide food-card-cutout food-card-ribs">
                 <img
                   src={`${imageOrigin}/food/ribs-krutoyar-v2.webp`}
                   alt="Свиные рёбра «Крутояр» с мочёными огурчиками и салатом коул слоу"
@@ -221,7 +213,18 @@ export default function Home() {
                 />
                 <figcaption><strong>Рёбра «Крутояр»</strong><span>мочёные огурчики · коул слоу</span></figcaption>
               </figure>
-              <figure className="food-card">
+              <figure className="food-card food-card-cutout food-card-burger">
+                <img
+                  src={`${imageOrigin}/food/burger-krutoyar-v2.webp`}
+                  alt="Бургер «Крутояр» с говяжьей котлетой, беконом, чеддером и картофелем"
+                  width="1100"
+                  height="778"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption><strong>Бургер «Крутояр»</strong><span>говядина · бекон · чеддер · хашбраун</span></figcaption>
+              </figure>
+              <figure className="food-card food-card-pizza">
                 <picture>
                   <source
                     srcSet={`${imageOrigin}/food/pizza-dyavolitsa-640.avif 640w, ${imageOrigin}/food/pizza-dyavolitsa-960.avif 960w`}
@@ -242,7 +245,7 @@ export default function Home() {
                     decoding="async"
                   />
                 </picture>
-                <figcaption><strong>Пицца «Дьяволица»</strong><span>Чоризо · халапеньо · шрирача</span></figcaption>
+                <figcaption><strong>Пицца<br />«Дьяволица»</strong><span>Чоризо · халапеньо · шрирача</span></figcaption>
               </figure>
             </div>
           </div>
