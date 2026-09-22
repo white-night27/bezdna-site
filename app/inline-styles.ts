@@ -1696,8 +1696,8 @@ section:not(.hero)::before{
   object-position:center 30%;
   padding:0.7rem 0.55rem 6.4rem;
   mix-blend-mode:screen;
-  -webkit-mask-image:radial-gradient(ellipse 72% 64% at 50% 38%,#000 52%,rgba(0,0,0,.92) 63%,transparent 84%);
-  mask-image:radial-gradient(ellipse 72% 64% at 50% 38%,#000 52%,rgba(0,0,0,.92) 63%,transparent 84%);
+  -webkit-mask-image:radial-gradient(ellipse 50% 44% at 50% 37%,#000 72%,rgba(0,0,0,.96) 82%,transparent 100%);
+  mask-image:radial-gradient(ellipse 50% 44% at 50% 37%,#000 72%,rgba(0,0,0,.96) 82%,transparent 100%);
 }
 .food-card-pizza strong{
   font-size:clamp(1.45rem,2.35vw,2.18rem);
