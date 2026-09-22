@@ -18,7 +18,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for base in "https://bezdna-bar.ru" "https://bezdna-site.vercel.app" "https://bezdna-site1.pages.dev"; do
+          for base in "https://bezdna-bar.ru" "https://bezdna-site.vercel.app" "https://bezdna-site1.pages.dev" "https://bezdna-site-git-fix-static-vercel-20260922-maksoid.vercel.app"; do
             echo
             echo "===== $base ====="
             curl -L --http2 -fsS --connect-timeout 10 --max-time 30 \
@@ -50,6 +50,7 @@ jobs:
             ["custom", "https://bezdna-bar.ru/?perfdiag=browser"],
             ["vercel", "https://bezdna-site.vercel.app/?perfdiag=browser"],
             ["pages", "https://bezdna-site1.pages.dev/?perfdiag=browser"],
+            ["vercel-static-preview", "https://bezdna-site-git-fix-static-vercel-20260922-maksoid.vercel.app/?perfdiag=browser"],
           ];
 
           (async()=>{
