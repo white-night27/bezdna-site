@@ -1,15 +1,25 @@
 import type { Metadata } from "next";
+import { execFileSync } from "node:child_process";
 import { inlineStyles } from "./inline-styles";
 
 const siteUrl = "https://bezdna-bar.ru";
-// Cloudflare Pages and Vercel inject the deployed Git commit at build time.
+function gitHead() {
+  try {
+    return execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim();
+  } catch {
+    return "";
+  }
+}
+
+// Vercel may hide system variables, but Git deployments still build from a clone.
 const deploymentCommit = process.env.CF_PAGES_COMMIT_SHA
   || process.env.VERCEL_GIT_COMMIT_SHA
   || process.env.GITHUB_SHA
-  || "local";
+  || gitHead()
+  || (process.env.NODE_ENV === "development" ? "local" : "");
 
 if (deploymentCommit !== "local" && !/^[0-9a-f]{40}$/i.test(deploymentCommit)) {
-  throw new Error("Invalid deployment commit SHA");
+  throw new Error("Build requires a full Git SHA from the host or Git checkout");
 }
 
 export const metadata: Metadata = {

@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import { readdir, readFile, stat } from "node:fs/promises";
 import test from "node:test";
 
@@ -37,10 +38,15 @@ test("renders the supplied Bezdna reference design and content", async () => {
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview|react-loading-skeleton/i);
 });
 
-test("publishes the build commit in the live homepage HTML", async () => {
-  const html = await readFile(new URL("../out/index.html", import.meta.url), "utf8");
-  const expected = process.env.CF_PAGES_COMMIT_SHA || process.env.VERCEL_GIT_COMMIT_SHA || process.env.GITHUB_SHA || "local";
-  assert.match(html, new RegExp(`<meta name="site-commit" content="${expected}"`));
+test("publishes the build commit on the live routes used by the smoke test", async () => {
+  const expected = process.env.CF_PAGES_COMMIT_SHA
+    || process.env.VERCEL_GIT_COMMIT_SHA
+    || process.env.GITHUB_SHA
+    || execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim();
+  for (const route of ["index.html", "menu/index.html"]) {
+    const html = await readFile(new URL(`../out/${route}`, import.meta.url), "utf8");
+    assert.match(html, new RegExp(`<meta name="site-commit" content="${expected}"`));
+  }
 });
 
 test("renders a dedicated, indexable menu page", async () => {

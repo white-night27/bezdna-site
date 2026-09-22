@@ -13,7 +13,6 @@ test("reads the deployed commit from the homepage HTML", () => {
 
 test("waits for the expected live version before continuing", async () => {
   const observed = [];
-  const responses = [oldSha, "missing", newSha];
   const result = await waitForProduction({
     expectedSha: newSha,
     intervalMs: 1,
@@ -21,24 +20,28 @@ test("waits for the expected live version before continuing", async () => {
     log: message => observed.push(message),
     fetchImpl: async url => {
       assert.equal(url.searchParams.get("ci_sha"), newSha);
-      const marker = responses.shift();
+      const attempt = Number(url.searchParams.get("ci_attempt"));
+      const marker = url.hostname === "bezdna-bar.ru"
+        ? (attempt < 2 ? oldSha : newSha)
+        : (attempt < 3 ? oldSha : newSha);
       return new Response(`<meta name="site-commit" content="${marker}">`);
     },
   });
   assert.equal(result.attempts, 3);
+  assert.deepEqual(result.urls, ["https://bezdna-bar.ru/", "https://bezdna-site.vercel.app/menu/"]);
   assert.match(observed.at(-1), /confirmed/);
 });
 
-test("fails clearly when live stays stale or unavailable", async () => {
+test("fails clearly when the Vercel menu stays stale or unavailable", async () => {
   await assert.rejects(
     waitForProduction({
       expectedSha: newSha,
       timeoutMs: 35,
       intervalMs: 1,
       log: () => {},
-      fetchImpl: async () => new Response(`<meta name="site-commit" content="${oldSha}">`),
+      fetchImpl: async url => new Response(`<meta name="site-commit" content="${url.hostname === "bezdna-bar.ru" ? newSha : oldSha}">`),
     }),
-    /did not reach .*last: HTTP 200, site-commit=aaa/,
+    /did not reach .*bezdna-site\.vercel\.app\/menu\/: HTTP 200, site-commit=aaa/,
   );
   await assert.rejects(
     waitForProduction({
@@ -46,8 +49,11 @@ test("fails clearly when live stays stale or unavailable", async () => {
       timeoutMs: 35,
       intervalMs: 1,
       log: () => {},
-      fetchImpl: async () => { throw new Error("connection refused"); },
+      fetchImpl: async url => {
+        if (url.hostname === "bezdna-bar.ru") return new Response(`<meta name="site-commit" content="${newSha}">`);
+        throw new Error("connection refused");
+      },
     }),
-    /did not reach .*last: request error: connection refused/,
+    /did not reach .*bezdna-site\.vercel\.app\/menu\/: request error: connection refused/,
   );
 });
