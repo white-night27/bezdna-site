@@ -64,6 +64,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="ru">
       <head>
+        <link rel="preconnect" href="https://bezdna-site.vercel.app" />
         <style dangerouslySetInnerHTML={{ __html: inlineStyles }} />
         <meta name="theme-color" content="#070606" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />

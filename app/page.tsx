@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { features, legalDetails, menuCategories, navigation, venue } from "./content";
 
+const imageOrigin = "https://bezdna-site.vercel.app";
+
 const atmosphere = [
   {
     time: "16:00",
@@ -199,7 +201,7 @@ export default function Home() {
             <div className="food-gallery">
               <figure className="food-card food-card-wide food-card-cutout">
                 <img
-                  src="/food/burger-krutoyar-v2.webp"
+                  src={`${imageOrigin}/food/burger-krutoyar-v2.webp`}
                   alt="Бургер «Крутояр» с говяжьей котлетой, беконом, чеддером и картофелем"
                   width="1100"
                   height="778"
@@ -210,7 +212,7 @@ export default function Home() {
               </figure>
               <figure className="food-card food-card-cutout food-card-ribs">
                 <img
-                  src="/food/ribs-krutoyar-v2.webp"
+                  src={`${imageOrigin}/food/ribs-krutoyar-v2.webp`}
                   alt="Свиные рёбра «Крутояр» с мочёными огурчиками и салатом коул слоу"
                   width="1000"
                   height="1000"
@@ -222,17 +224,17 @@ export default function Home() {
               <figure className="food-card">
                 <picture>
                   <source
-                    srcSet="/food/pizza-dyavolitsa-640.avif 640w, /food/pizza-dyavolitsa-960.avif 960w"
+                    srcSet={`${imageOrigin}/food/pizza-dyavolitsa-640.avif 640w, ${imageOrigin}/food/pizza-dyavolitsa-960.avif 960w`}
                     sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 25vw"
                     type="image/avif"
                   />
                   <source
-                    srcSet="/food/pizza-dyavolitsa-640.webp 640w, /food/pizza-dyavolitsa-960.webp 960w"
+                    srcSet={`${imageOrigin}/food/pizza-dyavolitsa-640.webp 640w, ${imageOrigin}/food/pizza-dyavolitsa-960.webp 960w`}
                     sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 25vw"
                     type="image/webp"
                   />
                   <img
-                    src="/food/pizza-dyavolitsa-640.webp"
+                    src={`${imageOrigin}/food/pizza-dyavolitsa-640.webp`}
                     alt="Острая пицца Дьяволица с чоризо и халапеньо"
                     width="640"
                     height="480"
