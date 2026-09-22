@@ -1,4 +1,5 @@
 name: Live performance diagnostic
+# rerun after Vercel static production deployment
 
 on:
   pull_request:
