@@ -89,6 +89,21 @@ const devices = [
         };
       });
 
+      // Lazy food photos can be below the fold on mobile and the live host may be far
+      // from the CI runner: bring each photo into view and wait for load/error first.
+      await page.evaluate(async () => {
+        const imgs = [...document.querySelectorAll(".food-gallery img")];
+        for (const img of imgs) {
+          img.scrollIntoView({ block: "center" });
+          if (img.complete && img.naturalWidth > 0) continue;
+          await new Promise(resolve => {
+            img.addEventListener("load", resolve, { once: true });
+            img.addEventListener("error", resolve, { once: true });
+            setTimeout(resolve, 15000);
+          });
+        }
+      });
+
       const imageInfo = await page.evaluate(() => {
         const imgs = [...document.querySelectorAll(".food-gallery img")];
         return imgs.map(img => {
