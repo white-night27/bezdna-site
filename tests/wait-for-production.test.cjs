@@ -21,27 +21,27 @@ test("waits for the expected live version before continuing", async () => {
     fetchImpl: async url => {
       assert.equal(url.searchParams.get("ci_sha"), newSha);
       const attempt = Number(url.searchParams.get("ci_attempt"));
-      const marker = url.hostname === "bezdna-bar.ru"
+      const marker = url.pathname === "/"
         ? (attempt < 2 ? oldSha : newSha)
         : (attempt < 3 ? oldSha : newSha);
       return new Response(`<meta name="site-commit" content="${marker}">`);
     },
   });
   assert.equal(result.attempts, 3);
-  assert.deepEqual(result.urls, ["https://bezdna-bar.ru/", "https://bezdna-site.vercel.app/menu/"]);
+  assert.deepEqual(result.urls, ["https://bezdna-bar.ru/", "https://bezdna-bar.ru/menu/"]);
   assert.match(observed.at(-1), /confirmed/);
 });
 
-test("fails clearly when the Vercel menu stays stale or unavailable", async () => {
+test("fails clearly when the menu page stays stale or unavailable", async () => {
   await assert.rejects(
     waitForProduction({
       expectedSha: newSha,
       timeoutMs: 35,
       intervalMs: 1,
       log: () => {},
-      fetchImpl: async url => new Response(`<meta name="site-commit" content="${url.hostname === "bezdna-bar.ru" ? newSha : oldSha}">`),
+      fetchImpl: async url => new Response(`<meta name="site-commit" content="${url.pathname === "/" ? newSha : oldSha}">`),
     }),
-    /did not reach .*bezdna-site\.vercel\.app\/menu\/: HTTP 200, site-commit=aaa/,
+    /did not reach .*bezdna-bar\.ru\/menu\/: HTTP 200, site-commit=aaa/,
   );
   await assert.rejects(
     waitForProduction({
@@ -50,10 +50,10 @@ test("fails clearly when the Vercel menu stays stale or unavailable", async () =
       intervalMs: 1,
       log: () => {},
       fetchImpl: async url => {
-        if (url.hostname === "bezdna-bar.ru") return new Response(`<meta name="site-commit" content="${newSha}">`);
+        if (url.pathname === "/") return new Response(`<meta name="site-commit" content="${newSha}">`);
         throw new Error("connection refused");
       },
     }),
-    /did not reach .*bezdna-site\.vercel\.app\/menu\/: request error: connection refused/,
+    /did not reach .*bezdna-bar\.ru\/menu\/: request error: connection refused/,
   );
 });

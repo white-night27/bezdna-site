@@ -1,0 +1,57 @@
+name: Deploy to Yandex Object Storage
+
+# bezdna-bar.ru is served from Russian infrastructure so guests in Russia can open it
+# without VPN (Cloudflare is throttled to 16 KB and Vercel is unreachable from RU ISPs).
+# Auth: GitHub OIDC -> Yandex Cloud Workload Identity Federation. No stored keys.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: deploy-yandex
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ vars.YC_SA_ID != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.17.1 --activate
+
+      - name: Install and build static export
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+
+      - name: Upload to Object Storage
+        uses: yc-actions/yc-obj-storage-upload@v5
+        with:
+          yc-sa-id: ${{ vars.YC_SA_ID }}
+          bucket: ${{ vars.YC_BUCKET || 'bezdna-bar.ru' }}
+          root: ./out
+          include: '**/*'
+          cache-control: |
+            *.html: public, max-age=300
+            *.xml: public, max-age=3600
+            *.txt: public, max-age=3600
+            *: public, max-age=86400
+          clear: true
+          skip-unchanged: true

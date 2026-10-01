@@ -111,8 +111,8 @@ const devices = [
             if (!galleryMetrics.ribsLoaded) issues.push("ribs image did not load");
             if (!galleryMetrics.pizzaLoaded) issues.push("pizza image did not load");
             if (galleryMetrics.ribsFit !== "contain") issues.push(`ribs object-fit is ${galleryMetrics.ribsFit}`);
-            if (!galleryMetrics.menuVisible || galleryMetrics.menuHref !== "https://bezdna-site.vercel.app/menu/") {
-              issues.push(`header menu button is not routed through stable menu origin: ${galleryMetrics.menuHref}`);
+            if (!galleryMetrics.menuVisible || galleryMetrics.menuHref !== "/menu/") {
+              issues.push(`header menu button does not point to the same-origin menu: ${galleryMetrics.menuHref}`);
             }
             if (!device.isMobile) {
               const widths = galleryMetrics.cardWidths.filter(Boolean);
@@ -137,7 +137,7 @@ const devices = [
             const menuHref = await menuButton.getAttribute("href");
             const menuCheck = await context.newPage();
             try {
-              const menuResponse = await menuCheck.goto(menuHref, { waitUntil: "domcontentloaded", timeout: 30000 });
+              const menuResponse = await menuCheck.goto(new URL(menuHref, baseUrl + "/").href, { waitUntil: "domcontentloaded", timeout: 30000 });
               if (!menuResponse || !menuResponse.ok()) issues.push(`menu target failed: ${menuResponse?.status() || "no response"} ${menuHref}`);
               await menuCheck.waitForSelector("#menu-content", { state: "visible", timeout: 10000 });
             } catch (error) {
