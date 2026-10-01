@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 const { performance } = require("node:perf_hooks");
 
-const liveUrls = ["https://bezdna-bar.ru/", "https://bezdna-site.vercel.app/menu/"];
+const liveUrls = ["https://bezdna-bar.ru/", "https://bezdna-bar.ru/menu/"];
 
 function readCommitMarker(html) {
   const tags = html.match(/<meta\b[^>]*>/gi) || [];

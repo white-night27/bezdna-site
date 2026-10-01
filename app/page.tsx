@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { features, legalDetails, menuCategories, navigation, venue } from "./content";
 
-const imageOrigin = "https://bezdna-site.vercel.app";
+// Same origin: the site is served from Russian infrastructure (Yandex Object Storage).
+const imageOrigin = "";
 const menuUrl = `${imageOrigin}/menu/`;
 
 const atmosphere = [
@@ -316,7 +317,7 @@ export default function Home() {
                 <address>{venue.address}<br />ближайшее метро — «{venue.metro}»</address>
                 <p className="contact-phone"><a href={venue.phoneHref}>{venue.phone}</a></p>
                 <p className="route-link"><a href={venue.mapUrl} target="_blank" rel="noopener noreferrer" data-conversion="route-yandex">Открыть на Яндекс Картах →</a></p>
-                <p className="route-link"><a href="/contacts" data-conversion="route-details">Подробный маршрут и ориентиры →</a></p>
+                <p className="route-link"><a href="/contacts/" data-conversion="route-details">Подробный маршрут и ориентиры →</a></p>
               </div>
               <div className="contact-block">
                 <h3>Часы работы</h3>
@@ -355,7 +356,7 @@ export default function Home() {
               <a href={venue.telegramUrl} target="_blank" rel="noopener noreferrer">Telegram</a>
             </span>
             <span className="footer-legal-owner">Владелец сайта: {legalDetails.ownerShortName}</span>
-            <a className="footer-legal-link" href="/legal">Правовая информация</a>
+            <a className="footer-legal-link" href="/legal/">Правовая информация</a>
           </div>
         </div>
       </footer>

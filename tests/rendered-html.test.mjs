@@ -95,7 +95,7 @@ test("publishes one canonical domain in robots and sitemap", async () => {
 test("identifies the site owner and links to legal details", async () => {
   const html = await readBuiltHomeHtml();
   assert.match(html, /ООО «Б Е З Д Н А ТАПРУМ И КУХНЯ»/);
-  assert.match(html, /href="\/legal"/);
+  assert.match(html, /href="\/legal\/"/);
   assert.match(html, /Адрес заведения/);
 
   const legalSource = await readFile(new URL("../app/legal/page.tsx", import.meta.url), "utf8");
