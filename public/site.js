@@ -98,3 +98,59 @@
     init();
   }
 })();
+
+/* Depth upgrade: scroll reveal + decorative depth gauge (no dependencies). */
+(() => {
+  const start = () => {
+    const root = document.documentElement;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!reduce && "IntersectionObserver" in window) {
+      const targets = document.querySelectorAll(
+        "main section:not(.hero) .section-head, .about-grid, .menu-note, .menu-category-cards li, .food-card, .atmos-row, .feature-tags, .impression, .contact-block"
+      );
+      const viewportBottom = window.innerHeight;
+      const io = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.classList.add("is-in");
+          io.unobserve(entry.target);
+        }
+      }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+      const groups = new Map();
+      targets.forEach((el) => {
+        el.classList.add("reveal");
+        if (el.getBoundingClientRect().top < viewportBottom) { el.classList.add("is-in"); return; }
+        const parent = el.parentElement;
+        const index = groups.get(parent) || 0;
+        groups.set(parent, index + 1);
+        el.style.setProperty("--reveal-delay", `${Math.min(index, 4) * 90}ms`);
+        io.observe(el);
+      });
+      root.classList.add("js-reveal");
+      window.addEventListener("beforeprint", () => targets.forEach((el) => el.classList.add("is-in")));
+    }
+
+    const gauge = document.getElementById("depthGauge");
+    const value = document.getElementById("depthValue");
+    if (!gauge || !value) return;
+    const maxDepth = 1000;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const progress = Math.min(1, Math.max(0, window.scrollY / max));
+      gauge.style.setProperty("--depth", progress.toFixed(4));
+      gauge.classList.toggle("is-visible", window.scrollY > window.innerHeight * 0.35);
+      value.textContent = `${Math.round(progress * maxDepth)} м`;
+    };
+    window.addEventListener("scroll", () => { if (!frame) frame = requestAnimationFrame(update); }, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+    update();
+  };
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start, { once: true });
+  } else {
+    start();
+  }
+})();
