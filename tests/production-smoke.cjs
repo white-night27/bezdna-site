@@ -151,6 +151,10 @@ const devices = [
         if (maxWidth - minWidth > 8) issues.push(`food cards are not proportionate: ${requestedUi.cardWidths.join(",")}`);
       }
 
+      // Capture the food block before the menu CTA navigates away from the home page.
+      await page.screenshot({ path:path.join(out,`${device.name}-home.png`), fullPage:true });
+      await food.screenshot({ path:path.join(out,`${device.name}-food.png`) });
+
       const topMenu = page.locator(".header-menu-cta");
       await topMenu.click();
       await page.waitForSelector("#menu-content", { state:"visible", timeout:15000 });
@@ -168,9 +172,6 @@ const devices = [
 
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       if (overflow > 4) issues.push(`horizontal overflow ${overflow}px`);
-
-      await page.screenshot({ path:path.join(out,`${device.name}-home.png`), fullPage:true });
-      await food.screenshot({ path:path.join(out,`${device.name}-food.png`) });
 
       const routeChecks = [
         { path:"/menu/", selector:"#menu-content", titlePart:"Меню" },

@@ -1762,4 +1762,200 @@ a[href^="tel:"]{
     font-size:clamp(1.28rem,7vw,1.75rem);
   }
 }
+
+
+/* ============ DEPTH UPGRADE (2026-10-01) ============
+   Identity-preserving layer: same layout, logo, palette and copy.
+   Adds a self-hosted brand display font, hero sonar pulse, CTA hierarchy,
+   tactile hover states, a descending atmosphere and a decorative depth gauge.
+   Everything respects prefers-reduced-motion. */
+
+/* Brand display face for every device (SIL OFL, Latin + Cyrillic subset, ~16 KB).
+   Before this, phones without a locally installed Caveat fell back to a generic font. */
+@font-face{
+  font-family:"Caveat";
+  src:url("/fonts/caveat-display.woff2") format("woff2");
+  font-weight:400 700;
+  font-style:normal;
+  font-display:swap;
+}
+
+/* Hero: sonar pulse from the centre of the rings. */
+.hero-pulse circle{
+  transform-box:fill-box;
+  transform-origin:center;
+  opacity:0;
+  animation:bezdna-sonar 7.5s cubic-bezier(.22,.61,.36,1) infinite;
+}
+.hero-pulse circle:nth-child(2){ animation-delay:2.5s; }
+.hero-pulse circle:nth-child(3){ animation-delay:5s; }
+@keyframes bezdna-sonar{
+  0%{ transform:scale(1); opacity:0; }
+  8%{ opacity:.55; }
+  100%{ transform:scale(6.2); opacity:0; }
+}
+.hero-title em{
+  position:relative;
+  display:inline-block;
+}
+.hero-title em::after{
+  content:"";
+  position:absolute;
+  left:-6%;
+  right:-6%;
+  bottom:-0.15em;
+  height:0.045em;
+  background:linear-gradient(90deg,transparent,var(--blood-bright) 18%,var(--ember) 60%,transparent);
+  opacity:.75;
+  transform-origin:left center;
+  animation:bezdna-underline 1.4s .35s cubic-bezier(.22,.61,.36,1) both;
+}
+@keyframes bezdna-underline{ from{ transform:scaleX(0); } to{ transform:scaleX(1); } }
+
+/* CTA hierarchy: one strong action (call), one quieter (menu). */
+.btn{ overflow:hidden; isolation:isolate; }
+.btn-primary::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(110deg,transparent 30%,rgba(255,236,220,.16) 48%,transparent 66%);
+  transform:translateX(-120%);
+  transition:transform .7s cubic-bezier(.22,.61,.36,1);
+}
+.btn-primary:hover::after,.btn-primary:focus-visible::after{ transform:translateX(120%); }
+.btn-primary:hover,.btn-primary:focus-visible{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 14px 38px rgba(198,60,46,.28);
+}
+.hero-ctas .btn-ghost{
+  min-width:13.5rem;
+  border-color:rgba(176,138,85,.42);
+  background:rgba(245,238,230,.03);
+}
+.btn-arrow::after{
+  content:"→";
+  display:inline-block;
+  margin-left:.6em;
+  transition:transform .3s ease;
+}
+.btn-arrow:hover::after,.btn-arrow:focus-visible::after{ transform:translateX(4px); }
+
+/* Tactile cards on pointer devices. */
+.menu-category-cards li,
+.food-card,
+.contact-block,
+.impression{
+  transition:transform .35s cubic-bezier(.22,.61,.36,1),border-color .35s ease,box-shadow .35s ease;
+}
+.menu-category-cards li::before{ transition:height .45s cubic-bezier(.22,.61,.36,1); }
+@media (hover:hover) and (pointer:fine){
+  .menu-category-cards li:hover{
+    transform:translateY(-4px);
+    border-color:rgba(198,60,46,.38);
+    box-shadow:0 18px 40px rgba(0,0,0,.35),0 0 0 1px rgba(198,60,46,.08);
+  }
+  .menu-category-cards li:hover::before{ height:100%; }
+  .food-card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(198,60,46,.42);
+    box-shadow:0 30px 80px rgba(0,0,0,.42),0 0 60px rgba(198,60,46,.12);
+  }
+  .food-card img{ transition:filter .5s ease; }
+  .food-card:hover img{ filter:brightness(1.07) saturate(1.06); }
+  .contact-block:hover,.impression:hover{
+    transform:translateY(-3px);
+    border-color:rgba(176,138,85,.32);
+  }
+}
+
+/* Atmosphere: every row sits deeper than the one before. */
+.atmos-row{ position:relative; isolation:isolate; }
+.atmos-row::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.9;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 70%,transparent),linear-gradient(transparent,#000 18%,#000 82%,transparent);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent,#000 14%,#000 70%,transparent),linear-gradient(transparent,#000 18%,#000 82%,transparent);
+  mask-composite:intersect;
+}
+.atmos-row:nth-child(1)::before{ background:radial-gradient(ellipse 60% 90% at 12% 50%,rgba(176,138,85,.07),transparent 70%); }
+.atmos-row:nth-child(2)::before{ background:radial-gradient(ellipse 60% 90% at 12% 50%,rgba(198,60,46,.09),transparent 70%); }
+.atmos-row:nth-child(3)::before{ background:radial-gradient(ellipse 70% 100% at 12% 50%,rgba(134,29,24,.16),transparent 72%); }
+.atmos-row:nth-child(2) .atmos-time{ color:var(--ember); }
+.atmos-row:nth-child(3) .atmos-time{ color:var(--blood-bright); text-shadow:0 0 28px rgba(198,60,46,.35); }
+.atmos-timeline::before{
+  background:linear-gradient(transparent,rgba(176,138,85,.28) 10%,rgba(210,107,69,.32) 50%,rgba(198,60,46,.55) 90%,transparent);
+}
+
+/* Scroll reveal: only when JS is running and motion is welcome. */
+@media (prefers-reduced-motion:no-preference){
+  .js-reveal .reveal{
+    opacity:0;
+    transform:translateY(26px);
+    transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1);
+    transition-delay:var(--reveal-delay,0ms);
+  }
+  .js-reveal .reveal.is-in{ opacity:1; transform:none; }
+}
+
+/* Decorative depth gauge (wide screens only). */
+.depth-gauge{ display:none; }
+@media (min-width:1180px){
+  .depth-gauge{
+    --depth:0;
+    position:fixed;
+    right:clamp(.9rem,1.6vw,1.6rem);
+    top:50%;
+    z-index:40;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:.55rem;
+    transform:translateY(-50%);
+    font-family:var(--f-label);
+    font-size:.56rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:#7f7169;
+    pointer-events:none;
+    opacity:0;
+    transition:opacity .6s ease;
+  }
+  .depth-gauge.is-visible{ opacity:1; }
+  .depth-gauge-label{ writing-mode:vertical-rl; transform:rotate(180deg); }
+  .depth-gauge-track{
+    position:relative;
+    width:1px;
+    height:min(42vh,22rem);
+    background:linear-gradient(rgba(176,138,85,.35),rgba(198,60,46,.55));
+  }
+  .depth-gauge-marker{
+    position:absolute;
+    left:50%;
+    top:calc(var(--depth) * 100%);
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:var(--blood-bright);
+    box-shadow:0 0 0 3px rgba(198,60,46,.18),0 0 18px rgba(224,57,47,.7);
+    transform:translate(-50%,-50%);
+  }
+  .depth-gauge-value{
+    min-width:4.2rem;
+    text-align:center;
+    font-weight:500;
+    color:var(--bone-dim);
+    font-variant-numeric:tabular-nums;
+  }
+}
+@media (min-width:900px){
+  .atmos-row::before{ inset:0 -2rem; }
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-pulse{ display:none; }
+}
 `;

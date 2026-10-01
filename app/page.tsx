@@ -105,6 +105,11 @@ export default function Home() {
                 />
               ))}
               <circle cx="400" cy="400" r="60" fill="url(#fade)" />
+              <g className="hero-pulse" fill="none" stroke="#e0392f" strokeWidth="1.2">
+                <circle cx="400" cy="400" r="60" />
+                <circle cx="400" cy="400" r="60" />
+                <circle cx="400" cy="400" r="60" />
+              </g>
               <g stroke="#b32020" strokeOpacity="0.35" strokeWidth="1">
                 <line x1="400" y1="400" x2="400" y2="20" />
                 <line x1="400" y1="400" x2="400" y2="780" />
@@ -133,7 +138,7 @@ export default function Home() {
                 <a href={venue.phoneHref} className="btn btn-primary" data-conversion="phone-hero">
                   Позвонить и забронировать
                 </a>
-                <a href={menuUrl} className="btn btn-primary" data-conversion="menu-hero">
+                <a href={menuUrl} className="btn btn-ghost btn-arrow" data-conversion="menu-hero">
                   Посмотреть меню
                 </a>
               </div>
@@ -331,6 +336,13 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+      <div className="depth-gauge" id="depthGauge" aria-hidden="true">
+        <span className="depth-gauge-label">поверхность</span>
+        <span className="depth-gauge-track"><i className="depth-gauge-marker" /></span>
+        <span className="depth-gauge-label">дно</span>
+        <b className="depth-gauge-value" id="depthValue">0 м</b>
+      </div>
 
       <footer className="site-footer">
         <div className="container footer-inner">
